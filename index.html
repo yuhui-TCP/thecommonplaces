@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Common Places — Issue Nº001: The Filter Problem</title>
+
+<style>
+/* ==========================================================================
+   DESIGN SYSTEM GUIDELINES
+   Palette: Paper (#F4F1EA), Ink (#1A1A18), Gray (#6B6862), Accent (#B08D57), Signal (#C85A32)
+   Typography: Two-family max (Serif headlines/quotes, Sans body/meta/nav)
+   Rules: Hairlines only (1px solid), strictly left-aligned, no cards/shadows
+   ========================================================================== */
+
+:root {
+  --paper: #F4F1EA;
+  --ink: #1A1A18;
+  --gray: #6B6862;
+  --accent: #B08D57; /* Gold accent matching the logo mark */
+  --signal-red: #C85A32; /* Warm desaturated red accent */
+  --rule-color: #D6D2C8;
+  --rule-dark: #1A1A18;
+  
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  --wrap-max: 1280px;
+  --header-height: 80px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--paper);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Global Layout Grid --- */
+.wrap {
+  max-width: var(--wrap-max);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* --- Site Header & Brand Mark Logo --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--paper);
+  border-bottom: 1px solid var(--rule-color);
+  z-index: 1000;
+  padding: 0.75rem 0;
+}
+
+.site-header .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Typographic Logo based on TCP Logo Horizontal */
+.brand-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.brand-logo .logo-top {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  padding-bottom: 3px;
+  border-bottom: 1.5px solid var(--accent);
+  margin-bottom: 3px;
+}
+
+.brand-logo .logo-middle {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo .logo-middle .dot-c,
+.brand-logo .logo-middle .dot-n {
+  position: relative;
+}
+
+.brand-logo .logo-middle .dot-c::after {
+  content: "•";
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.brand-logo .logo-middle .dot-n::after {
+  content: "•";
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.brand-logo .logo-bottom {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.48em;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+nav.primary a {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  text-decoration: none;
+  margin-left: 2rem;
+  transition: color 0.15s ease;
+}
+
+nav.primary a:hover,
+nav.primary a[aria-current="page"] {
+  color: var(--ink);
+}
+
+/* --- Hero Section --- */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 4rem;
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--ink);
+  align-items: start;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 3.8vw, 3.2rem);
+  line-height: 1.15;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.02em;
+}
+
+.issue-subtitle {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  line-height: 1.4;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+  font-style: italic;
+}
+
+.dek {
+  font-size: 1.05rem;
+  line-height: 1.55;
+  color: var(--gray);
+  max-width: 58ch;
+  margin: 0 0 2rem 0;
+}
+
+.cta-button {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--paper);
+  background-color: var(--ink);
+  padding: 0.9rem 1.75rem;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+}
+
+.cta-button:hover {
+  background-color: var(--signal-red);
+}
+
+/* Hero Right Side Feature Card */
+.side-card {
+  border-left: 1px solid var(--rule-color);
+  padding-left: 2rem;
+}
+
+.cover-container {
+  background-color: #E2DDD3;
+  border: 1px solid var(--rule-color);
+  padding: 0;
+  margin-bottom: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.cover-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.cover-caption {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-style: italic;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* --- Editorial Principle Strip --- */
+.principle-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--rule-color);
+}
+
+.principle-item {
+  position: relative;
+}
+
+.p-num {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.principle-item h4 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  margin: 0 0 0.75rem 0;
+  color: var(--ink);
+}
+
+.principle-item p {
+  font-size: 14px;
+  color: var(--gray);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* --- Site Footer --- */
+.site-footer {
+  border-top: 1px solid var(--ink);
+  padding: 3rem 0;
+  margin-top: 2rem;
+  background-color: var(--paper);
+}
+
+.site-footer .row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+}
+
+.site-footer h4 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.colophon {
+  font-size: 12px;
+  color: var(--gray);
+  max-width: 36ch;
+  margin: 0;
+}
+
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.site-footer li {
+  margin-bottom: 0.4rem;
+}
+
+.site-footer a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.site-footer a:hover {
+  color: var(--ink);
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 960px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .side-card {
+    border-left: none;
+    border-top: 1px solid var(--rule-color);
+    padding-left: 0;
+    padding-top: 2rem;
+  }
+
+  .principle-strip {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .site-footer .row {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap row">
+    <!-- Reconstructed Typographic Logo -->
+    <a href="index.html" class="brand-logo" aria-label="The Common Places">
+      <span class="logo-top">THE</span>
+      <span class="logo-middle"><span class="dot-c">C</span>OMMO<span class="dot-n">N</span></span>
+      <span class="logo-bottom">PLACES</span>
+    </a>
+    <nav class="primary">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="archive.html">Archive</a>
+      <a href="issue-001.html">Latest Issue</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- Hero Featured Issue Section -->
+  <section class="hero">
+    <div>
+      <span class="eyebrow">Issue Nº001 — Out now</span>
+      <h1>When everything claims to be worth your attention, how do you decide what actually deserves it?</h1>
+      <p class="issue-subtitle">The Filter Problem — why so many of us still feel behind, and what better judgment actually looks like</p>
+      <p class="dek">For people who read widely and still feel behind. We begin with a question — about how we judge, what we choose, and what deserves our attention — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in real life.</p>
+      <a class="cta-button" href="issue-001.html">Read the Filter Problem</a>
+    </div>
+
+    <div class="side-card">
+      <div class="cover-container">
+        <!-- Pure SVG Rendering of the Issue 001 Cover Image -->
+        <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 001 Cover Artwork: The Filter Problem">
+          <!-- Background Paper -->
+          <rect width="900" height="1150" fill="#DDD8CE"/>
+          
+          <!-- Top Left Label -->
+          <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 001</text>
+          <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
+          
+          <!-- Top Right Subtitle -->
+          <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">HOW WE CHOOSE</text>
+          <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHAT MATTERS</text>
+          <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">IN A WORLD THAT</text>
+          <text x="810" y="295" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">DECIDES FOR US</text>
+
+          <!-- Main Serif Headline -->
+          <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
+          <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Filter</text>
+          <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Problem</text>
+
+          <!-- Shadow beneath paper stack -->
+          <polygon points="120,950 500,1050 820,810 400,760" fill="rgba(0,0,0,0.12)" />
+
+          <!-- Stacked Newspaper Pages Vector Simulation -->
+          <g transform="translate(140, 390)">
+            <!-- Stack Layers Base -->
+            <polygon points="40,550 420,640 680,420 300,340" fill="#BFB9AC" stroke="#8C867A" stroke-width="1"/>
+            <polygon points="35,540 415,630 675,410 295,330" fill="#CCC6B9" stroke="#9E988C" stroke-width="1"/>
+            <polygon points="38,530 418,620 678,400 298,320" fill="#D8D2C5" stroke="#AAA498" stroke-width="1"/>
+            <polygon points="32,520 412,610 672,390 292,310" fill="#ECE6D9" stroke="#BBB5A8" stroke-width="1"/>
+
+            <!-- Paper Stack Text / Grids -->
+            <polygon points="30,510 410,600 670,380 290,300" fill="#E8E2D5" stroke="#333333" stroke-width="1.5"/>
+            <!-- Newspaper Column Text Details -->
+            <line x1="80" y1="490" x2="220" y2="450" stroke="#666" stroke-width="2"/>
+            <line x1="80" y1="500" x2="220" y2="460" stroke="#666" stroke-width="2"/>
+            <line x1="80" y1="510" x2="220" y2="470" stroke="#666" stroke-width="2"/>
+            
+            <line x1="240" y1="445" x2="380" y2="405" stroke="#666" stroke-width="2"/>
+            <line x1="240" y1="455" x2="380" y2="415" stroke="#666" stroke-width="2"/>
+            <line x1="240" y1="465" x2="380" y2="425" stroke="#666" stroke-width="2"/>
+
+            <!-- Sticky Color Bookmark Tabs -->
+            <!-- Orange Tab top -->
+            <polygon points="410,110 460,123 440,145 390,132" fill="#E56A32"/>
+            <!-- Yellow Tab middle -->
+            <polygon points="120,180 180,195 165,215 105,200" fill="#E8AD38"/>
+            <!-- Red/Orange Tab -->
+            <polygon points="110,250 170,265 155,285 95,270" fill="#C85A32"/>
+            <!-- Blue Tab -->
+            <polygon points="520,240 570,253 555,270 505,257" fill="#8BB2C9"/>
+            <!-- Gold Tab lower -->
+            <polygon points="120,340 180,355 165,375 105,360" fill="#DDA032"/>
+            <!-- Peach Tab bottom -->
+            <polygon points="510,410 570,423 555,445 495,432" fill="#F0A683"/>
+            <!-- Yellow Tab very bottom -->
+            <polygon points="420,510 480,523 465,550 405,537" fill="#F2D172"/>
+          </g>
+
+          <!-- Dark Translucent Filter Square Overlay -->
+          <rect x="330" y="405" width="380" height="440" fill="#1A1A18" fill-opacity="0.65" stroke="#1A1A18" stroke-width="2"/>
+        </svg>
+      </div>
+      <p class="cover-caption">How we choose what matters in a world that decides for us.</p>
+    </div>
+  </section>
+
+  <!-- Editorial Principle Strip -->
+  <section class="principle-strip" aria-label="Our Publishing Principles">
+    <div class="principle-item">
+      <span class="p-num">Why we exist</span>
+      <h4>Judgment, not consumption</h4>
+      <p>We're not trying to help you consume more. We're trying to help you spend your attention as though it were what it has always actually been — the scarcest resource you have.</p>
+    </div>
+
+    <div class="principle-item">
+      <span class="p-num">How we work</span>
+      <h4>We show our reasoning</h4>
+      <p>We make considered choices about what's worth lingering over, and just as importantly, we show our working — including what we chose to leave out, and why.</p>
+    </div>
+
+    <div class="principle-item">
+      <span class="p-num">How often</span>
+      <h4>Slow, on purpose</h4>
+      <p>One question per issue, followed through its backstory, its complications, and how it plays out in everyday life — rather than a list of links dressed up as insight.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap row">
+    <div>
+      <h4>The Common Places</h4>
+      <p class="colophon">A publication about judgment, curation, and attention — one question per issue, argued properly.</p>
+    </div>
+    <div>
+      <h4>Read</h4>
+      <ul>
+        <li><a href="issue-001.html">Latest issue</a></li>
+        <li><a href="archive.html">Archive</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>About</h4>
+      <ul>
+        <li><a href="about.html">About this publication</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

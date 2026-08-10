@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Issue Nº001: The Filter Problem — The Common Places</title>
+<meta name="description" content="When everything claims to be worth your attention, how do you decide what actually deserves it?">
+
+<style>
+/* ==========================================================================
+   DESIGN SYSTEM GUIDELINES
+   Palette: Paper (#F4F1EA), Ink (#1A1A18), Gray (#6B6862), Accent (#B08D57 / #C85A32)
+   Typography: Two-family max (Serif headlines/quotes, Sans body/meta/nav)
+   Rules: Hairlines only (1px solid), strictly left-aligned, no cards/shadows
+   ========================================================================== */
+
+:root {
+  --paper: #F4F1EA;
+  --ink: #1A1A18;
+  --gray: #6B6862;
+  --accent: #B08D57; /* Gold accent matching the logo mark */
+  --signal-red: #C85A32; /* Warm desaturated red accent */
+  --rule-color: #D6D2C8;
+  --rule-dark: #1A1A18;
+  
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  --wrap-max: 1280px;
+  --header-height: 80px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--paper);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px; /* Monocle dense, serious body text */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Global Layout Grid --- */
+.wrap {
+  max-width: var(--wrap-max);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* --- Site Header & Brand Mark Logo --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--paper);
+  border-bottom: 1px solid var(--rule-color);
+  z-index: 1000;
+  padding: 0.75rem 0;
+}
+
+.site-header .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Typographic Logo based on TCP Logo Horizontal image */
+.brand-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.brand-logo .logo-top {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  padding-bottom: 3px;
+  border-bottom: 1.5px solid var(--accent);
+  margin-bottom: 3px;
+}
+
+.brand-logo .logo-middle {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo .logo-middle .dot-c,
+.brand-logo .logo-middle .dot-n {
+  position: relative;
+}
+
+.brand-logo .logo-middle .dot-c::after {
+  content: "•";
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.brand-logo .logo-middle .dot-n::after {
+  content: "•";
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.brand-logo .logo-bottom {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.48em;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+nav.primary a {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  text-decoration: none;
+  margin-left: 2rem;
+  transition: color 0.15s ease;
+}
+
+nav.primary a:hover,
+nav.primary a[aria-current="page"] {
+  color: var(--ink);
+}
+
+/* --- 5-Step Journey Navigation Bar --- */
+.journey-bar {
+  position: sticky;
+  top: 73px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+  z-index: 900;
+  padding: 0.6rem 0;
+}
+
+.journey-nav {
+  display: flex;
+  gap: 2.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.journey-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.journey-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+  text-decoration: none;
+}
+
+.journey-nav a .num {
+  color: var(--signal-red);
+  font-weight: 700;
+}
+
+.journey-nav a:hover,
+.journey-nav a.active {
+  color: var(--ink);
+}
+
+/* --- Page Layout: Main Flow vs Side Panel --- */
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px; /* Main content vs Dedicated Right Panel */
+  gap: 4rem;
+  align-items: start;
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+}
+
+/* --- Masthead Section --- */
+.issue-masthead {
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.meta-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.issue-masthead h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 3.5vw, 3rem);
+  line-height: 1.15;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.02em;
+}
+
+.dek {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--gray);
+  max-width: 58ch;
+  margin: 0 0 1.5rem 0;
+}
+
+.manifesto-intro {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 2px solid var(--accent);
+  padding-left: 1rem;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.masthead-spec {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule-color);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray);
+}
+
+.masthead-spec span strong {
+  color: var(--ink);
+}
+
+/* --- Editorial 5-Step Flow --- */
+.editorial-section {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 2rem;
+  padding: 3.5rem 0;
+  border-bottom: 1px solid var(--rule-color);
+}
+
+.sec-gutter {
+  font-family: var(--font-sans);
+}
+
+.sec-num {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--signal-red);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.sec-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  display: block;
+  font-weight: 600;
+}
+
+.sec-content {
+  max-width: 60ch;
+}
+
+.sec-content h2 {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 0.25rem 0;
+  color: var(--ink);
+}
+
+.byline-src {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+  margin: 0 0 1.75rem 0;
+  font-weight: 600;
+}
+
+.sec-content p {
+  margin-bottom: 1.25rem;
+}
+
+.sec-content strong {
+  font-weight: 600;
+}
+
+.sec-content em {
+  font-style: italic;
+}
+
+.styled-list {
+  padding-left: 1.2rem;
+  margin: 1.5rem 0;
+}
+
+.styled-list li {
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+
+/* Bridges */
+blockquote.bridge {
+  margin: 3rem 0 1rem 0;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.bridge-tag {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   SEPARATE RIGHT PANEL: EDITORIAL SIGNATURE
+   ========================================================================== */
+.signature-panel {
+  position: sticky;
+  top: calc(73px + 2rem);
+  border-left: 1px solid var(--ink);
+  padding-left: 2rem;
+}
+
+.panel-header {
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.panel-header h3 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  margin: 0 0 0.25rem 0;
+}
+
+.panel-subtitle {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  display: block;
+  font-weight: 600;
+}
+
+.sig-block {
+  margin-bottom: 2rem;
+}
+
+.sig-block h4 {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin: 0 0 0.75rem 0;
+}
+
+.pull-quote {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.45;
+  color: var(--ink);
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+}
+
+.panel-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.panel-links li {
+  border-bottom: 1px solid var(--rule-color);
+  padding: 0.85rem 0;
+}
+
+.panel-links li:last-child {
+  border-bottom: none;
+}
+
+.panel-links a {
+  text-decoration: none;
+  color: var(--ink);
+  display: block;
+}
+
+.panel-links a:hover h5 {
+  color: var(--signal-red);
+}
+
+.panel-links h5 {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.25;
+}
+
+.panel-links p {
+  font-size: 12px;
+  color: var(--gray);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.omission-box {
+  background-color: #ECE8DF;
+  border: 1px solid var(--rule-color);
+  padding: 1.25rem;
+  margin-top: 2rem;
+}
+
+.omission-box h4 {
+  color: var(--ink);
+  margin-top: 0;
+  border-bottom: 1px solid var(--rule-color);
+  padding-bottom: 0.5rem;
+}
+
+.omission-box p {
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.5;
+  margin-bottom: 0.85rem;
+}
+
+.omission-box p:last-child {
+  margin-bottom: 0;
+}
+
+.mission-statement {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px !important;
+  color: var(--ink) !important;
+  border-top: 1px solid var(--rule-color);
+  padding-top: 0.85rem;
+  margin-top: 0.85rem;
+}
+
+/* --- Site Footer --- */
+.site-footer {
+  border-top: 1px solid var(--ink);
+  padding: 3rem 0;
+  margin-top: 4rem;
+  background-color: var(--paper);
+}
+
+.site-footer .row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+}
+
+.site-footer h4 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.colophon {
+  font-size: 12px;
+  color: var(--gray);
+  max-width: 36ch;
+  margin: 0;
+}
+
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.site-footer li {
+  margin-bottom: 0.4rem;
+}
+
+.site-footer a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.site-footer a:hover {
+  color: var(--ink);
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 960px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .signature-panel {
+    position: static;
+    border-left: none;
+    border-top: 1px solid var(--ink);
+    padding-left: 0;
+    padding-top: 2.5rem;
+  }
+
+  .editorial-section {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .site-footer .row {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap row">
+    <!-- Reconstructed Logo Matching Attachment -->
+    <a href="index.html" class="brand-logo" aria-label="The Common Places">
+      <span class="logo-top">THE</span>
+      <span class="logo-middle"><span class="dot-c">C</span>OMMO<span class="dot-n">N</span></span>
+      <span class="logo-bottom">PLACES</span>
+    </a>
+    <nav class="primary">
+      <a href="index.html">Home</a>
+      <a href="archive.html">Archive</a>
+      <a href="issue-001.html" aria-current="page">Latest Issue</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Sticky 5-Step Journey Bar -->
+<nav class="journey-bar" aria-label="Journey steps in this issue">
+  <div class="wrap journey-nav">
+    <a href="#question" class="active"><span class="num">01</span><span>The Question</span></a>
+    <a href="#backstory"><span class="num">02</span><span>The Backstory</span></a>
+    <a href="#complication"><span class="num">03</span><span>The Complication</span></a>
+    <a href="#idea"><span class="num">04</span><span>The Idea</span></a>
+    <a href="#practice"><span class="num">05</span><span>In Practice</span></a>
+  </div>
+</nav>
+
+<div class="wrap page-grid">
+
+  <!-- LEFT COLUMN: Main Editorial Journey (Steps 1–5) -->
+  <main class="main-column">
+
+    <section class="issue-masthead">
+      <span class="meta-label">ISSUE Nº001 — THE FILTER PROBLEM</span>
+      <h1>Why so many of us still feel behind — and what better judgment actually looks like</h1>
+      <p class="dek">When everything claims to be worth your attention, how do you decide what actually deserves it?</p>
+      
+      <p class="manifesto-intro">
+        <em>For people who read widely and still feel behind.</em> We begin with a question — about how we judge, what we choose, and what deserves our attention — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in the real world.
+      </p>
+
+      <div class="masthead-spec">
+        <span>Structure: <strong>5-Step Journey</strong></span>
+        <span>Reading Time: <strong>~20 min</strong></span>
+        <span>Subject: <strong>Judgment &amp; Attention</strong></span>
+      </div>
+    </section>
+
+    <article class="editorial-flow">
+
+      <!-- STEP 01 -->
+      <section id="question" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">01</span>
+          <span class="sec-tag">Question</span>
+        </div>
+        <div class="sec-content">
+          <h2>1. The Question</h2>
+          <div class="byline-src">Monday morning, 7:42am.</div>
+          
+          <p>You're on the MRT, one hand on the rail, the other scrolling through your phone. The train hasn't even reached Tanjong Pagar, and you've already consumed a week's worth of headlines, opinions, recommendations, updates and things you didn't know you needed to know.</p>
+          
+          <ul class="styled-list">
+            <li>A Bloomberg alert about interest rates, delivered with the same urgency whether or not it changes anything you do today</li>
+            <li>Three WhatsApp messages from a work group chat that never quite sleeps</li>
+            <li>A LinkedIn post insisting that AI is about to remake your entire industry</li>
+            <li>A podcast episode a friend called “essential,” sitting unplayed at 1.2x speed</li>
+            <li>Two newsletters you saved on Saturday with every intention of reading them</li>
+            <li>A ChatGPT conversation from last night that felt important enough to bookmark, though you can no longer say why</li>
+          </ul>
+
+          <p>By the time you tap out at Raffles Place, you already feel behind — not because of anything you did, but simply because of how much arrived while you were getting dressed.</p>
+          
+          <p>This is a strange feeling for a society built as deliberately around learning as Singapore has been. The public libraries are genuinely excellent. University places are contested precisely because so many people want them. SkillsFuture credits sit in most people's accounts, a small standing reminder that the state itself expects you to keep studying. AI can now summarise a 400-page book in the time it takes to order kopi. By any historical measure, we live inside one of the most information-abundant societies that has ever existed.</p>
+          
+          <p>And yet ask a thoughtful thirty-something in a Raffles Place office how they feel about their reading list, and you will rarely hear satisfaction. You will hear something closer to quiet guilt — the sense that somewhere out there, a more disciplined version of themselves is finishing the books they have only started.</p>
+          
+          <p>That gap is worth sitting with, because it is easy to misdiagnose. The instinctive explanation is that we are reading too little. The more accurate explanation is that there is simply too much that appears worth reading, and no reliable way to tell, in advance, which parts of it actually are.</p>
+          
+          <p>This distinction is not a technicality. It changes what the actual problem is.</p>
+          
+          <p>For most of human history, the scarce resource was the material itself. A book had to be copied by hand, then printed, then shipped, then afforded. A lecture existed only for the people in the room. Access was the bottleneck, and access was expensive. Today, access costs almost nothing. A single lunch break of scrolling puts more books, essays, papers, and talks in front of you than most educated people a century ago encountered in a decade. What has not gotten any cheaper — what may, if anything, have gotten more expensive — is the capacity to decide which of it deserves your attention.</p>
+          
+          <p>Call it <em>judgment overload</em>, to distinguish it from the more familiar phrase “information overload.” Every article, every course, every AI-generated summary arrives carrying the same implicit claim: this matters, read me. We cannot personally verify all of those claims. There isn't time. So we are left doing something quieter and more exhausting than reading — we are constantly, half-consciously, triaging.</p>
+          
+          <p>Singapore's particular culture of self-improvement makes this harder rather than easier. In a society where continual learning is treated as a baseline civic virtue, choosing not to read something can feel like a small failure of ambition. An unread book on the shelf stops looking like a book and starts looking like evidence — proof that you are not keeping up with people who, for all you know, are not keeping up either. The quiet anxiety that follows is familiar to almost every knowledge worker in this city: the suspicion that someone else, somewhere, is learning faster than you are.</p>
+          
+          <p>But it is worth asking whether that was ever the right measure of an educated life. Perhaps the goal was never to consume everything available — an impossible target that grows further away the harder you chase it. Perhaps the actual skill, the one nobody teaches directly, is learning to choose well what deserves a place inside the small number of hours you actually have.</p>
+          
+          <p>This is the question this issue exists to sit with, and the question The Common Places will keep returning to, issue after issue: <strong>when everything claims to be worth your attention, how do you decide what actually deserves it?</strong></p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            Before treating this as a uniquely digital-age crisis, it is worth remembering that every earlier period of exploding knowledge forced someone to confront the same uncomfortable question — long before smartphones existed to blame.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 02 -->
+      <section id="backstory" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">02</span>
+          <span class="sec-tag">Backstory</span>
+        </div>
+        <div class="sec-content">
+          <h2>2. The Backstory</h2>
+          <div class="byline-src">Too Much to Know — Ann M. Blair</div>
+          
+          <p>Ann M. Blair's <em>Too Much to Know: Managing Scholarly Information Before the Modern Age</em> offers a useful corrective to the idea that information overload began with smartphones.</p>
+          
+          <p>Blair's book is a useful corrective to modern self-pity, and it is worth letting that sting a little before moving on. Long before smartphones, long before the printing press had even finished reshaping Europe, scholars were already complaining — in letters, in prefaces, in the margins of their own books — that there were simply too many books to read. Once moveable type made copying cheap, Europe experienced its own information explosion, and it produced the same anxieties we recognise today: that important work was being buried under a flood of lesser publications, that no single mind could hold everything worth knowing, and that serious scholarship itself might be becoming impossible under the sheer volume of print.</p>
+          
+          <p>What had changed was not merely the quantity of books in circulation. What had changed was the emergence of an entirely new cognitive problem — abundance itself, as a condition to be managed rather than simply enjoyed.</p>
+          
+          <p>The response, Blair shows, was remarkably practical rather than despairing. Scholars built indexes. They compiled bibliographies. They kept commonplace books — personal notebooks of excerpted passages, organised by theme, designed to let a reader retrieve an idea without re-reading the source that contained it. They built catalogues, cross-references, and systems of extraction whose entire purpose was to let one person navigate more material than any single mind could fully master. In other words: they treated the work of filtering not as an unfortunate compromise on the way to real scholarship, but as a serious intellectual technology in its own right — as worthy of craft as the writing itself.</p>
+          
+          <p>This history lands with particular weight in Singapore, a place that likes to speak of its challenges — traffic, land, water, information — as uniquely modern engineering problems to be solved with sufficiently clever systems. Blair's account is a quiet corrective to that instinct. Educated societies have repeatedly hit the point where the available knowledge outgrew any individual's capacity to absorb it, and the real question was never whether the flood could be stopped. It never could be. The real question was always whether better methods of judgment could be built to meet it.</p>
+          
+          <p>The comforting implication is that the feeling of being unable to keep up is not evidence of personal failure; it is closer to a structural constant of literate life. The more challenging implication runs the other way: no future technological improvement is likely to make the need for selection disappear. Faster search engines, sharper recommendation algorithms, more capable AI assistants — these can help you find candidates faster. None of them can tell you, on your behalf, which of those candidates actually deserves the hours you have left this month.</p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            If curation has always been part of intellectual life, it is only fair to hear from thinkers who believe the impulse to filter is itself the mistake.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 03 -->
+      <section id="complication" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">03</span>
+          <span class="sec-tag">Complication</span>
+        </div>
+        <div class="sec-content">
+          <h2>3. The Complication</h2>
+          <div class="byline-src">The Case for Not Knowing</div>
+          
+          <p>Nassim Nicholas Taleb's idea of the antilibrary, inspired by Umberto Eco's enormous collection of unread books, creates an uncomfortable challenge to everything we've just said.</p>
+          
+          <p>Visitors to Eco's library reportedly assumed the thousands of unread volumes on his shelves must embarrass him. Eco's response was the opposite: he did not experience his unread books as guilt. He experienced them as a running, physical reminder of the size of what he did not yet know. The unread shelf was not a to-do list. It was intellectual humility, made visible.</p>
+          
+          <p>This is a genuinely uncomfortable idea for many Singaporean professionals, trained from an early age to measure progress through completion — finished modules, finished courses, finished certifications, finished books. An unread book, in that frame, looks like unfinished work, a small standing failure. Taleb's suggestion runs the other way entirely: a person whose shelves contain no unread books may simply have stopped confronting the edges of their own ignorance. The antilibrary is not a backlog. It is a map of everything you have honestly admitted you don't yet understand.</p>
+          
+          <p>The argument gains a second edge when set beside Alan Jacobs' defence of reading at Whim — a term he uses deliberately, in defiance of every productivity framework that treats reading as a project to be planned and executed. Jacobs worries that a life of relentlessly optimised, curated reading quietly sterilises the reader. Some of the books that end up mattering most arrive sideways: recommended in passing by someone you'd forgotten you trusted, picked up because the cover caught your eye at exactly the wrong, right moment. No deliberate filtering system would have selected them in advance, because their value only became visible in hindsight.</p>
+          
+          <p>Put Taleb and Jacobs together, and a real tension opens up for a publication built entirely around deliberate curation. If unread books carry their own value, and if unplanned, unfiltered reading can outperform carefully curated reading, then a publication devoted to selection has to be honest about a risk built into its own premise: the risk of mistaking helpful guidance for excessive control — of filtering so thoroughly that nothing surprising gets through.</p>
+          
+          <p>The resolution is not that curation is wrong. It is that good curation has to actively protect the possibility of surprise, on purpose, as a design constraint rather than an afterthought. A filter that removes everything unexpected may be very efficient at protecting your attention while quietly starving your imagination.</p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            Whether you lean toward deliberate curation or intellectual serendipity, both positions are spending from the same account. The real question underneath the disagreement is not simply what to read, but how attention itself should be allocated in the first place — and that turns out to be a question with an actual framework behind it.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 04 -->
+      <section id="idea" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">04</span>
+          <span class="sec-tag">Idea</span>
+        </div>
+        <div class="sec-content">
+          <h2>4. The Idea</h2>
+          <div class="byline-src">Attention Is the Scarce Resource — Herbert A. Simon</div>
+          
+          <p>Herbert Simon wrote the single most important sentence in this entire issue, and he wrote it decades before the internet existed: <strong>a wealth of information creates a poverty of attention</strong>. It is one of those lines that gets quoted often and absorbed rarely — treated as a clever turn of phrase rather than as the operating principle it actually is. Simon's point was not simply that information had become abundant. His point was that every single piece of information you take in consumes some portion of a resource that does not expand to meet demand: the attention of the person receiving it.</p>
+          
+          <p>This reframes the entire problem. If attention is the truly scarce input, then the goal cannot be to process more information more efficiently — because processing itself is the activity that depletes the scarce resource in the first place. Getting better at reading fast doesn't solve the problem; it just lets you burn through the finite resource more quickly. The real design challenge is building a deliberate system for deciding, in advance, what is even allowed to compete for your attention at all.</p>
+          
+          <p>For a Singapore professional, this carries an uncomfortable implication that is easy to skip past. Every decision to read one article, attend one webinar, or enrol in one course is simultaneously a decision not to spend that same block of time somewhere else — with family, with colleagues, in deep uninterrupted work, in actual rest, or on some entirely different idea that might, five years from now, turn out to have mattered more. Attention, understood this way, is not merely a productivity input to be optimised. It is a life resource, and every allocation of it is a small, largely invisible act of choosing one version of your future over another.</p>
+          
+          <p>Mortimer Adler and Charles Van Doren's <em>How to Read a Book</em> offers a practical companion to Simon's theory rather than a competing one. Their distinction between inspectional and analytical reading gives a working heuristic for an age of abundance. Inspectional reading means deliberately, systematically examining a book's structure, argument, and apparent relevance before committing to full, careful engagement with it — skimming the introduction, scanning the chapter headings, reading the conclusion, forming a real judgment about whether this book earns the deeper investment. This is not superficiality dressed up as a shortcut. It is intelligent triage, performed openly rather than left to guilt or momentum.</p>
+          
+          <p>A useful working rule falls out of combining Simon with Adler: not every potentially valuable resource deserves equal depth of attention. Some ideas earn careful, patient study. Some earn a quick structural scan and nothing more. Some earn being set aside entirely, without apology. The actual skill — the one this whole issue is circling — is learning to make those three distinctions consciously and in advance, rather than quietly letting an algorithm, a social feed, or a passing mood make them for you by default.</p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            Frameworks are easy to nod along to in the abstract. The harder question is what this kind of judgment looks like in the hands of someone who has to make inclusion and exclusion decisions continuously, at speed, with real consequences attached to getting it wrong.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 05 -->
+      <section id="practice" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">05</span>
+          <span class="sec-tag">Practice</span>
+        </div>
+        <div class="sec-content">
+          <h2>5. In Practice</h2>
+          <div class="byline-src">Editorial Judgment in Everyday Life</div>
+          
+          <p>The problem with information today is not that there is too little of it. It is that there is too much — and much of it is genuinely worth knowing. A book sits half-read beside the bed. Three newsletters arrive before breakfast. A podcast is saved for the commute. Someone sends an article with the message, “This made me think of you.” There is a new exhibition, a documentary everyone is talking about, a course that promises to finally explain something you have been meaning to understand. None of these things is necessarily bad. Most are probably good.</p>
+          
+          <p>And that is precisely the problem.</p>
+          
+          <p>When everything is interesting, interestingness stops being a useful filter. We save rather than decide. We collect rather than absorb. Our reading lists, browser tabs and saved podcasts become small monuments to the person we imagine we ought to be: more informed, more curious, more cultured, somehow always catching up. The instinct is understandable. If something might be valuable, why leave it behind?</p>
+          
+          <p>But this is where judgment becomes more useful than access. The question is not whether something has value. Almost everything does. The question is whether it deserves our attention, now. This is not a new problem. Every editor, curator and librarian has always worked within the same basic constraint: there will always be more material than there is time to consider it. The task is therefore not to discover everything that matters, but to make reasonable decisions about what matters enough to pursue.</p>
+          
+          <p>Those decisions are rarely made with perfect information. We cannot know whether the book we abandon will contain the idea we most need, or whether the article we skip will prove significant a year from now. We make choices based on what we know, what we are curious about, what we are trying to understand, and what seems relevant to the moment we are actually living in. This is important because filtering is often mistaken for exclusion. To leave something unread is not to declare it worthless. To put a book back on the shelf is not to say it is a bad book. It is simply an acknowledgement that attention is finite, and that spending it on one thing necessarily means not spending it on another.</p>
+          
+          <p>There is also a deeper consequence. What we repeatedly give our attention to begins to shape the way we see. The subjects we return to, the questions we follow, the ideas we allow to occupy our minds — these gradually become part of our intellectual landscape. A crowded information diet does not necessarily produce a richer one. Sometimes it simply makes it harder to know what we actually think. The Common Places takes a deliberate position within this problem. We are not interested in declaring what everyone should read, see or care about. Nor do we believe that relevance can be reduced to a universal formula. Instead, we make considered choices. We select the ideas, histories, places, objects and questions that seem worth lingering over — and, just as importantly, we show our reasoning.</p>
+          
+          <p>The point is not to make the world smaller. It is to make better use of the attention we have for it.</p>
+        </div>
+      </section>
+
+    </article>
+
+  </main>
+
+  <!-- RIGHT COLUMN: Separate Editorial Signature Panel -->
+  <aside class="signature-panel" aria-label="Editorial Signature">
+    
+    <div class="panel-header">
+      <h3>Editorial Signature</h3>
+      <span class="panel-subtitle">Takeaways &amp; Further Reading</span>
+    </div>
+
+    <!-- One Idea to Keep -->
+    <div class="sig-block">
+      <h4>One Idea to Keep</h4>
+      <blockquote class="pull-quote">
+        Every act of attention is also an act of exclusion. Good judgment is not the absence of exclusion — it is learning to choose your exclusions on purpose, rather than letting them happen to you by accident.
+      </blockquote>
+    </div>
+
+    <!-- Go Further -->
+    <div class="sig-block">
+      <h4>Go Further — Three Places to Continue</h4>
+      <ul class="panel-links">
+        <li>
+          <a href="https://yalebooks.yale.edu/book/9780300165395/too-much-to-know/" target="_blank" rel="noopener">
+            <h5>Too Much to Know</h5>
+            <p>Ann Blair — Why information overload is much older than the internet.</p>
+          </a>
+        </li>
+        <li>
+          <a href="https://time.com/6961454/daniel-kahneman-death-interview-thinking/" target="_blank" rel="noopener">
+            <h5>Thinking, Fast and Slow</h5>
+            <p>Daniel Kahneman — Why having more information does not necessarily produce better judgment.</p>
+          </a>
+        </li>
+        <li>
+          <a href="https://community.criticalthinking.org/libraryForEveryone.php" target="_blank" rel="noopener">
+            <h5>The Miniature Guide to Critical Thinking</h5>
+            <p>Paul &amp; Elder — A practical introduction to examining assumptions, evidence and reasoning.</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- What We Chose Not to Include -->
+    <div class="omission-box">
+      <h4>What We Chose Not to Include</h4>
+      <p>We deliberately left out productivity apps, speed-reading techniques, and AI summarisation workflows. Those tools can genuinely help you process information more efficiently. But efficiency was never the question this issue was built to answer. Before you process anything at all, the harder and prior question stands unanswered: how do you decide what deserves your attention in the first place?</p>
+      
+      <p>We also chose not to publish a straightforward “best books of the year” list. That format performs curation without ever explaining the reasoning behind it — it hands a reader a set of conclusions rather than a way of thinking. The purpose of this issue was never to simply hand you a reading list. It was to make the process of judgment visible enough that you can start building your own criteria for what is genuinely worth reading, studying, and holding onto.</p>
+      
+      <p class="mission-statement">
+        The Common Places is not trying to help you consume more. It is trying to help you spend your attention as though it were what it has always actually been — the scarcest resource you have.
+      </p>
+    </div>
+
+  </aside>
+
+</div>
+
+<footer class="site-footer">
+  <div class="wrap row">
+    <div>
+      <h4>The Common Places</h4>
+      <p class="colophon">A publication about judgment, curation, and attention — one question per issue, argued properly.</p>
+    </div>
+    <div>
+      <h4>Read</h4>
+      <ul>
+        <li><a href="issue-001.html">Latest Issue</a></li>
+        <li><a href="archive.html">Archive</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>About</h4>
+      <ul>
+        <li><a href="about.html">About this publication</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
