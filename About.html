@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About — The Common Places</title>
+
+<style>
+/* ==========================================================================
+   DESIGN SYSTEM GUIDELINES
+   Palette: Paper (#F4F1EA), Ink (#1A1A18), Gray (#6B6862), Accent (#B08D57), Signal (#C85A32)
+   Typography: Two-family max (Serif headlines/quotes, Sans body/meta/nav)
+   Rules: Hairlines only (1px solid), strictly left-aligned, no cards/shadows
+   ========================================================================== */
+
+:root {
+  --paper: #F4F1EA;
+  --ink: #1A1A18;
+  --gray: #6B6862;
+  --accent: #B08D57; /* Gold accent matching the logo mark */
+  --signal-red: #C85A32; /* Warm desaturated red accent */
+  --rule-color: #D6D2C8;
+  --rule-dark: #1A1A18;
+  
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  --wrap-max: 1280px;
+  --header-height: 80px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--paper);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Global Layout Grid --- */
+.wrap {
+  max-width: var(--wrap-max);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* --- Site Header & Brand Mark Logo --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--paper);
+  border-bottom: 1px solid var(--rule-color);
+  z-index: 1000;
+  padding: 0.75rem 0;
+}
+
+.site-header .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Typographic Logo based on TCP Logo Horizontal */
+.brand-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.brand-logo .logo-top {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  padding-bottom: 3px;
+  border-bottom: 1.5px solid var(--accent);
+  margin-bottom: 3px;
+}
+
+.brand-logo .logo-middle {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo .logo-middle .dot-c,
+.brand-logo .logo-middle .dot-n {
+  position: relative;
+}
+
+.brand-logo .logo-middle .dot-c::after {
+  content: "•";
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.brand-logo .logo-middle .dot-n::after {
+  content: "•";
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.brand-logo .logo-bottom {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.48em;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+nav.primary a {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  text-decoration: none;
+  margin-left: 2rem;
+  transition: color 0.15s ease;
+}
+
+nav.primary a:hover,
+nav.primary a[aria-current="page"] {
+  color: var(--ink);
+}
+
+/* --- Page Masthead --- */
+.about-masthead {
+  padding: 4rem 0 3rem 0;
+  border-bottom: 1px solid var(--ink);
+}
+
+.meta-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.about-masthead h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  line-height: 1.15;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.02em;
+}
+
+.dek {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  line-height: 1.45;
+  color: var(--gray);
+  max-width: 58ch;
+  margin: 0;
+  font-style: italic;
+}
+
+/* --- Content Layout --- */
+.about-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 4rem;
+  padding: 4rem 0;
+  border-bottom: 1px solid var(--rule-color);
+}
+
+.sec-title {
+  position: sticky;
+  top: calc(var(--header-height) + 2rem);
+}
+
+.sec-title h2 {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 400;
+  margin: 0 0 0.5rem 0;
+  color: var(--ink);
+}
+
+.sec-title span {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  display: block;
+}
+
+.sec-body {
+  max-width: 62ch;
+}
+
+.sec-body p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0 0 1.25rem 0;
+  color: var(--ink);
+}
+
+.highlight-lead {
+  font-size: 1.2rem !important;
+  line-height: 1.5 !important;
+  font-weight: 600;
+  color: var(--ink);
+  border-left: 2px solid var(--accent);
+  padding-left: 1.25rem;
+  margin: 1.5rem 0 2rem 0 !important;
+}
+
+/* --- Believes Grid --- */
+.beliefs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem;
+  margin-top: 1rem;
+}
+
+.belief-card {
+  border-top: 1px solid var(--rule-color);
+  padding-top: 1.25rem;
+}
+
+.belief-card h3 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
+  color: var(--ink);
+}
+
+.belief-card p {
+  font-size: 14px !important;
+  color: var(--gray);
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* --- What We Publish Box --- */
+.publish-box {
+  background-color: #ECE8DF;
+  border: 1px solid var(--rule-color);
+  padding: 2rem;
+  margin-top: 1rem;
+}
+
+.publish-box p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.publish-box p:last-child {
+  margin-bottom: 0;
+}
+
+.publish-box strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* --- Site Footer --- */
+.site-footer {
+  border-top: 1px solid var(--ink);
+  padding: 3rem 0;
+  margin-top: 4rem;
+  background-color: var(--paper);
+}
+
+.site-footer .row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+}
+
+.site-footer h4 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.colophon {
+  font-size: 12px;
+  color: var(--gray);
+  max-width: 36ch;
+  margin: 0;
+}
+
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.site-footer li {
+  margin-bottom: 0.4rem;
+}
+
+.site-footer a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.site-footer a:hover {
+  color: var(--ink);
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 960px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 2.5rem 0;
+  }
+
+  .sec-title {
+    position: static;
+  }
+
+  .beliefs-grid {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+  }
+
+  .site-footer .row {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap row">
+    <!-- Reconstructed Typographic Logo -->
+    <a href="index.html" class="brand-logo" aria-label="The Common Places">
+      <span class="logo-top">THE</span>
+      <span class="logo-middle"><span class="dot-c">C</span>OMMO<span class="dot-n">N</span></span>
+      <span class="logo-bottom">PLACES</span>
+    </a>
+    <nav class="primary">
+      <a href="index.html">Home</a>
+      <a href="archive.html">Archive</a>
+      <a href="issue-001.html">Latest Issue</a>
+      <a href="about.html" aria-current="page">About</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- About Masthead -->
+  <section class="about-masthead">
+    <span class="meta-label">ABOUT THE PUBLICATION</span>
+    <h1>The Common Places</h1>
+    <p class="dek">Helping curious people decide what deserves their attention.</p>
+  </section>
+
+  <!-- SECTION 01: Why We Exist -->
+  <section class="about-grid">
+    <div class="sec-title">
+      <span>01 / PURPOSE</span>
+      <h2>Why We Exist</h2>
+    </div>
+    <div class="sec-body">
+      <p>We live in an age of extraordinary abundance.</p>
+      <p>Books arrive faster than we can read them. Articles accumulate in unread folders. Podcasts queue endlessly. AI can generate summaries of almost anything within seconds.</p>
+      <p>Yet many thoughtful people feel less certain about what truly deserves their attention.</p>
+      <p><strong>The Common Places exists to answer that question.</strong></p>
+      <p class="highlight-lead">We believe the modern challenge is not access to knowledge. It is judgment.</p>
+    </div>
+  </section>
+
+  <!-- SECTION 02: What We Believe -->
+  <section class="about-grid">
+    <div class="sec-title">
+      <span>02 / PRINCIPLES</span>
+      <h2>What We Believe</h2>
+    </div>
+    <div class="sec-body" style="max-width: 100%;">
+      <div class="beliefs-grid">
+        
+        <div class="belief-card">
+          <h3>Depth over speed</h3>
+          <p>Some ideas deserve an entire weekend. Some deserve ten minutes. Wisdom begins with knowing the difference.</p>
+        </div>
+
+        <div class="belief-card">
+          <h3>Curation over aggregation</h3>
+          <p>We are not trying to collect everything worth reading. We are trying to identify what matters most.</p>
+        </div>
+
+        <div class="belief-card">
+          <h3>Understanding over summaries</h3>
+          <p>A summary can convey a conclusion. It cannot always convey the reasoning, the tension, the stories, or the gradual construction of an idea. Some works must be experienced, not compressed.</p>
+        </div>
+
+        <div class="belief-card">
+          <h3>Timeless ideas over trending content</h3>
+          <p>We care more about what remains useful in five years than what is popular for five days.</p>
+        </div>
+
+        <div class="belief-card" style="grid-column: 1 / -1;">
+          <h3>Editorial judgment over algorithms</h3>
+          <p>Technology can help discover resources. It cannot replace thoughtful selection, context, and perspective.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 03: What We Publish -->
+  <section class="about-grid">
+    <div class="sec-title">
+      <span>03 / FORMAT</span>
+      <h2>What We Publish</h2>
+    </div>
+    <div class="sec-body">
+      <p>Everything revolves around <strong>Issues</strong>.</p>
+      <p>An Issue is not a blog post. It is not a newsletter.</p>
+      
+      <div class="publish-box">
+        <p>An Issue is a carefully designed learning journey built around <strong>one important question</strong>.</p>
+        <p>Each Issue combines books, essays, articles, podcasts, lectures, research papers, and courses into a coherent editorial experience.</p>
+        <p>We never reproduce copyrighted work. We guide readers toward original creators and add our own commentary, context, and connections.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap row">
+    <div>
+      <h4>The Common Places</h4>
+      <p class="colophon">A publication about judgment, curation, and attention — one question per issue, argued properly.</p>
+    </div>
+    <div>
+      <h4>Read</h4>
+      <ul>
+        <li><a href="issue-001.html">Latest Issue</a></li>
+        <li><a href="archive.html">Archive</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>About</h4>
+      <ul>
+        <li><a href="about.html">About this publication</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
