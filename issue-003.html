@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Issue Nº003: The Proximity Trap — The Common Places</title>
+<meta name="description" content="When proximity is mistaken for connection, how do you tell what's actually yours?">
+
+<style>
+/* ==========================================================================
+   DESIGN SYSTEM GUIDELINES
+   Palette: Paper (#F4F1EA), Ink (#1A1A18), Gray (#6B6862), Accent (#B08D57 / #C85A32)
+   Typography: Two-family max (Serif headlines/quotes, Sans body/meta/nav)
+   Rules: Hairlines only (1px solid), strictly left-aligned, no cards/shadows
+   ========================================================================== */
+
+:root {
+  --paper: #F4F1EA;
+  --ink: #1A1A18;
+  --gray: #6B6862;
+  --accent: #B08D57; /* Gold accent matching the logo mark */
+  --signal-red: #C85A32; /* Warm desaturated red accent */
+  --rule-color: #D6D2C8;
+  --rule-dark: #1A1A18;
+  
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  --wrap-max: 1280px;
+  --header-height: 80px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--paper);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px; /* Monocle dense, serious body text */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Global Layout Grid --- */
+.wrap {
+  max-width: var(--wrap-max);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* --- Site Header & Brand Mark Logo --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--paper);
+  border-bottom: 1px solid var(--rule-color);
+  z-index: 1000;
+  padding: 0.75rem 0;
+}
+
+.site-header .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Typographic Logo based on TCP Logo Horizontal image */
+.brand-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.brand-logo .logo-top {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  padding-bottom: 3px;
+  border-bottom: 1.5px solid var(--accent);
+  margin-bottom: 3px;
+}
+
+.brand-logo .logo-middle {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo .logo-middle .dot-c,
+.brand-logo .logo-middle .dot-n {
+  position: relative;
+}
+
+.brand-logo .logo-middle .dot-c::after {
+  content: "•";
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.brand-logo .logo-middle .dot-n::after {
+  content: "•";
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.brand-logo .logo-bottom {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.48em;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+nav.primary a {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  text-decoration: none;
+  margin-left: 2rem;
+  transition: color 0.15s ease;
+}
+
+nav.primary a:hover,
+nav.primary a[aria-current="page"] {
+  color: var(--ink);
+}
+
+/* --- 5-Step Journey Navigation Bar --- */
+.journey-bar {
+  position: sticky;
+  top: 73px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+  z-index: 900;
+  padding: 0.6rem 0;
+}
+
+.journey-nav {
+  display: flex;
+  gap: 2.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.journey-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.journey-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+  text-decoration: none;
+}
+
+.journey-nav a .num {
+  color: var(--signal-red);
+  font-weight: 700;
+}
+
+.journey-nav a:hover,
+.journey-nav a.active {
+  color: var(--ink);
+}
+
+/* --- Page Layout: Main Flow vs Side Panel --- */
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px; /* Main content vs Dedicated Right Panel */
+  gap: 4rem;
+  align-items: start;
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+}
+
+/* --- Masthead Section --- */
+.issue-masthead {
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.meta-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.issue-masthead h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 3.5vw, 3rem);
+  line-height: 1.15;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.02em;
+}
+
+.dek {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--gray);
+  max-width: 58ch;
+  margin: 0 0 1.5rem 0;
+}
+
+.manifesto-intro {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 2px solid var(--accent);
+  padding-left: 1rem;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.masthead-spec {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule-color);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray);
+}
+
+.masthead-spec span strong {
+  color: var(--ink);
+}
+
+/* --- Editorial 5-Step Flow --- */
+.editorial-section {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 2rem;
+  padding: 3.5rem 0;
+  border-bottom: 1px solid var(--rule-color);
+}
+
+.sec-gutter {
+  font-family: var(--font-sans);
+}
+
+.sec-num {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--signal-red);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.sec-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  display: block;
+  font-weight: 600;
+}
+
+.sec-content {
+  max-width: 60ch;
+}
+
+.sec-content h2 {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 0.25rem 0;
+  color: var(--ink);
+}
+
+.byline-src {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+  margin: 0 0 1.75rem 0;
+  font-weight: 600;
+}
+
+.sec-content p {
+  margin-bottom: 1.25rem;
+}
+
+.sec-content strong {
+  font-weight: 600;
+}
+
+.sec-content em {
+  font-style: italic;
+}
+
+.styled-list {
+  padding-left: 1.2rem;
+  margin: 1.5rem 0;
+}
+
+.styled-list li {
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+
+/* Bridges */
+blockquote.bridge {
+  margin: 3rem 0 1rem 0;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.bridge-tag {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   SEPARATE RIGHT PANEL: EDITORIAL SIGNATURE
+   ========================================================================== */
+.signature-panel {
+  position: sticky;
+  top: calc(73px + 2rem);
+  border-left: 1px solid var(--ink);
+  padding-left: 2rem;
+}
+
+.panel-header {
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.panel-header h3 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  margin: 0 0 0.25rem 0;
+}
+
+.panel-subtitle {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  display: block;
+  font-weight: 600;
+}
+
+.sig-block {
+  margin-bottom: 2rem;
+}
+
+.sig-block h4 {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin: 0 0 0.75rem 0;
+}
+
+.pull-quote {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.45;
+  color: var(--ink);
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+}
+
+.panel-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.panel-links li {
+  border-bottom: 1px solid var(--rule-color);
+  padding: 0.85rem 0;
+}
+
+.panel-links li:last-child {
+  border-bottom: none;
+}
+
+.panel-links a {
+  text-decoration: none;
+  color: var(--ink);
+  display: block;
+}
+
+.panel-links a:hover h5 {
+  color: var(--signal-red);
+}
+
+.panel-links h5 {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.25;
+}
+
+.panel-links p {
+  font-size: 12px;
+  color: var(--gray);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.omission-box {
+  background-color: #ECE8DF;
+  border: 1px solid var(--rule-color);
+  padding: 1.25rem;
+  margin-top: 2rem;
+}
+
+.omission-box h4 {
+  color: var(--ink);
+  margin-top: 0;
+  border-bottom: 1px solid var(--rule-color);
+  padding-bottom: 0.5rem;
+}
+
+.omission-box p {
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.5;
+  margin-bottom: 0.85rem;
+}
+
+.omission-box p:last-child {
+  margin-bottom: 0;
+}
+
+.mission-statement {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px !important;
+  color: var(--ink) !important;
+  border-top: 1px solid var(--rule-color);
+  padding-top: 0.85rem;
+  margin-top: 0.85rem;
+}
+
+/* --- Site Footer --- */
+.site-footer {
+  border-top: 1px solid var(--ink);
+  padding: 3rem 0;
+  margin-top: 4rem;
+  background-color: var(--paper);
+}
+
+.site-footer .row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+}
+
+.site-footer h4 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.colophon {
+  font-size: 12px;
+  color: var(--gray);
+  max-width: 36ch;
+  margin: 0;
+}
+
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.site-footer li {
+  margin-bottom: 0.4rem;
+}
+
+.site-footer a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.site-footer a:hover {
+  color: var(--ink);
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 960px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .signature-panel {
+    position: static;
+    border-left: none;
+    border-top: 1px solid var(--ink);
+    padding-left: 0;
+    padding-top: 2.5rem;
+  }
+
+  .editorial-section {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .site-footer .row {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap row">
+    <!-- Reconstructed Logo Matching Attachment -->
+    <a href="index.html" class="brand-logo" aria-label="The Common Places">
+      <span class="logo-top">THE</span>
+      <span class="logo-middle"><span class="dot-c">C</span>OMMO<span class="dot-n">N</span></span>
+      <span class="logo-bottom">PLACES</span>
+    </a>
+    <nav class="primary">
+      <a href="index.html">Home</a>
+      <a href="issue-003.html" aria-current="page">Issue 03</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Sticky 5-Step Journey Bar -->
+<nav class="journey-bar" aria-label="Journey steps in this issue">
+  <div class="wrap journey-nav">
+    <a href="#question" class="active"><span class="num">01</span><span>The Question</span></a>
+    <a href="#backstory"><span class="num">02</span><span>The Backstory</span></a>
+    <a href="#complication"><span class="num">03</span><span>The Complication</span></a>
+    <a href="#idea"><span class="num">04</span><span>The Idea</span></a>
+    <a href="#practice"><span class="num">05</span><span>In Practice</span></a>
+  </div>
+</nav>
+
+<div class="wrap page-grid">
+
+  <!-- LEFT COLUMN: Main Editorial Journey (Steps 1–5) -->
+  <main class="main-column">
+
+    <section class="issue-masthead">
+      <span class="meta-label">ISSUE Nº003 — THE PROXIMITY TRAP</span>
+      <h1>When proximity is mistaken for connection, how do you tell what's actually yours?</h1>
+      <p class="dek">The Proximity Trap — why the people who know your calendar best aren't always the people who know you — and what real friendship costs that closeness never has to pay</p>
+      
+      <p class="manifesto-intro">
+        <em>For people whose fullest, most reliable hours belong to people they didn't choose and may not keep.</em> We begin with a question — about hours, choice, and what closeness actually requires — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in the real world.
+      </p>
+
+      <div class="masthead-spec">
+        <span>Structure: <strong>5-Step Journey</strong></span>
+        <span>Reading Time: <strong>~18 min</strong></span>
+        <span>Subject: <strong>Proximity &amp; Connection</strong></span>
+      </div>
+    </section>
+
+    <article class="editorial-flow">
+
+      <!-- STEP 01 -->
+      <section id="question" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">01</span>
+          <span class="sec-tag">Question</span>
+        </div>
+        <div class="sec-content">
+          <h2>1. The Question</h2>
+          <div class="byline-src">Wednesday, 9:15pm, in the back of a Grab home.</div>
+          
+          <p>It's the second team dinner this month, and you didn't really think twice about skipping the MRT — after a day like that, paying more for the ride feels less like an indulgence and more like a fair trade for not standing the whole way home with your bag digging into your shoulder. You already know exactly how your colleague takes her coffee, whose approval is quietly holding up next week's launch, and which of you is dreading Monday's numbers most. You've covered for each other, more than once, on things that had nothing to do with either of your job descriptions.</p>
+          
+          <p>Scrolling your phone at a red light, you notice something almost by accident: the last five people you texted were all from work. Somewhere further down the thread list is a group chat with the friends you made in your twenties — the ones who knew you before any of this, before the title, before the industry. It hasn't moved in months, except for the occasional meme someone drops into the silence, as if that counts as staying in touch.</p>
+          
+          <p>This is a strange thing to notice in a country that prides itself on staying connected — dense enough that everyone is, in theory, twenty minutes from everyone else; wired enough that a message never technically goes unanswered for long. Singapore does not lack the infrastructure for closeness. By most measures, it has never been easier to stay in someone's life.</p>
+          
+          <p>And yet ask a capable professional in their forties how their social life actually feels, and you rarely hear contentment. You hear something more like quiet arithmetic — a private tally of who they've actually seen this year, outside of work, that adds up to fewer names than they'd like to admit.</p>
+          
+          <p>That tally is worth sitting with, because it's easy to misdiagnose. The instinctive explanation is that you've simply gotten busier, and that friendship is one of the casualties of a demanding career. The more accurate explanation is narrower and less flattering: the space that old friendships used to occupy didn't stay empty. It was quietly filled by whoever was already in the room — and the people already in the room, five days a week, are almost always colleagues.</p>
+          
+          <p>This distinction is not a technicality. It changes what the actual problem is.</p>
+          
+          <p>For most of human history, closeness followed proximity almost by default — you were friendly with whoever lived on your street, worked your trade, prayed at your temple, because there was rarely anyone else available to be close to. Proximity and community were, for most people, the same thing. Today, that is no longer true. Proximity has been engineered almost entirely into one place — the office — while everything that might generate closeness outside of it now requires something proximity never used to demand: deliberate, scheduled, unpaid effort, against the pull of a much easier default.</p>
+          
+          <p>Call it <em>the default relationship</em>, to separate it from an actual friendship freely chosen. A default relationship isn't fake, and it isn't nothing — it runs on real hours, real familiarity, sometimes real warmth. What it doesn't run on is choice. It exists because you are both, reliably, in the same room, and it rarely survives the room being taken away.</p>
+          
+          <p>Singapore's particular work culture makes this harder to notice, not easier. Long hours are worn here as evidence of commitment rather than a cost to be minimised, and an open-plan office, a dinner that runs late, a group chat that never quite sleeps, all quietly present themselves as social life rather than a substitute for one. Declining one more team dinner can register, faintly, as a lack of team spirit — even when what's actually being declined is simply more time with people you didn't get to choose.</p>
+          
+          <p>But it's worth asking whether hours logged together was ever the right measure of a friendship. Perhaps the goal was never to resent the closeness that proximity does produce — some of it is genuinely valuable, on its own terms. Perhaps the actual skill, the one nobody teaches directly, is noticing when the default relationship has quietly become the only kind left, and doing something about that before it's the only kind you have.</p>
+          
+          <p>This is the question this issue exists to sit with, and the question The Common Places will keep returning to, issue after issue: <strong>when everything in your day defaults to the people already in the room, how do you tell an actual friendship from one that simply hasn't been tested yet?</strong></p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            Before assuming this is a uniquely modern, uniquely corporate problem, it's worth asking whether every society organised around a dominant institution has quietly let it absorb people's social lives — long before the open-plan office existed to blame.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 02 -->
+      <section id="backstory" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">02</span>
+          <span class="sec-tag">Backstory</span>
+        </div>
+        <div class="sec-content">
+          <h2>2. The Backstory</h2>
+          <div class="byline-src">The Great Good Place — Ray Oldenburg</div>
+          
+          <p>Singapore already had a name for this, several of them, long before anyone called it a "third place."</p>
+          
+          <p>The kopitiam table that filled up by nine without anyone booking it. The void deck comes alive in the evening—children playing and residents feeding the community cats; a shared space where strangers become familiar faces and everyday lives intersect. The community centre with its badminton courts always booked out and a grassroots meeting that ran late over kopi. None of these places asked anything of the people in them beyond showing up, and closeness formed there almost as a side effect — nobody's bonus depended on being well-liked at the kopitiam. The American sociologist Ray Oldenburg later gave this shape a term, the "third place," arguing that a functioning social life needs three distinct kinds of place: the first is home, the second is work, and the third is everywhere in between, where people gather with no agenda beyond hanging out.</p>
+          
+          <p>The third place did something neither home nor work could do. It produced relationships that owed nothing to obligation. You weren't there because you were paid to be, or because you were related to anyone in the room. You were there because it was pleasant to be there, repeatedly, with no deliverable attached — and it was precisely that lack of stakes that let real friendship take root.</p>
+          
+          <p>Singapore's older social fabric — kopitiams, void decks, community centres — was built almost entirely out of third places like these, and much of that infrastructure still physically exists. The void decks haven't been demolished. The kopitiams haven't closed. What has changed is the share of a person's week it actually occupies. Oldenburg's original warning, written decades before a single smartphone existed, was that suburbanisation and longer commutes were crowding third places out of ordinary life. The Singapore version of that warning isn't about geography — this is still a dense, walkable, twenty-minutes-from-anywhere island — it's about time. The second place has simply expanded to fill the hours the third place used to hold.</p>
+          
+          <p>The comforting implication is that the flatness of a life spent mostly between home and work is not a personal failure of sociability; it is closer to what happens, predictably, when the third place quietly disappears from someone's week. The more challenging implication runs the other way: no work perk, however generous, can substitute for what a third place did, because a workplace is not, and was never designed to be, a place people attend for no reason at all.</p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            If third places were where undesigned friendship used to happen, it's only fair to ask whether the workplace closeness that replaced them is actually worth less — or whether dismissing it outright misses something real about what these relationships do provide.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 03 -->
+      <section id="complication" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">03</span>
+          <span class="sec-tag">Complication</span>
+        </div>
+        <div class="sec-content">
+          <h2>3. The Complication</h2>
+          <div class="byline-src">The Strength of Weak Ties — Mark Granovetter</div>
+          
+          <p>The people you're not that close to are doing more for you than you think, and there's a name for why.</p>
+          
+          <p>Ask around and a familiar shape turns up: the job that came through a course-mate you hadn't spoken to in three years, the flat you found because a former colleague mentioned it in passing, the useful introduction that came not from your closest friend but from someone you sat next to during reservist. It's rarely the people who know you best who produce the opportunity. It's the people you're not especially close to.</p>
+          
+          <p>The sociologist Mark Granovetter named this <em>the strength of weak ties</em>, after tracing how a group of professionals had actually found their jobs — overwhelmingly through acquaintances rather than close friends. The reason is structural, not personal: your closest friends tend to already know the people you know, so there's little new information circulating between you. Your weak ties — the ex-colleague, the gym buddy, the person you sat next to at a course last year — sit inside different networks entirely, and that gap is where genuinely new information and opportunity travel through.</p>
+          
+          <p>This complicates the previous chapter considerably. To treat workplace closeness as a lesser, almost fraudulent category of relationship risks flattening something that is, on its own terms, genuinely useful. A colleague you'd never call at 2am might still be the person who tells you about the role that changes your career, covers for you without being asked, or simply makes an unbearable Tuesday bearable through sheer daily presence. None of that is nothing. Weak ties are not failed strong ties. They are a different, legitimate category, doing work that close friendship was never built to do.</p>
+          
+          <p>There is a contingency worth naming plainly, though. A weak tie's usefulness is often inseparable from the structure that produced it — the org chart, the seating plan, the shared deadline. Change the structure and the tie frequently doesn't survive it, not because anyone behaved badly, but because the tie was never independent of the room it formed in. That isn't a flaw in the relationship. It's simply its nature, and it becomes a problem only when it's mistaken for something sturdier than it is.</p>
+          
+          <p>So the real complication is not that default relationships are hollow. It is that they occupy a category with real, specific value — and a category with a real, specific limit. The mistake was never having colleagues in this category. The mistake is letting it become the only category left, so that the day the org chart changes, the shelf that should have held something sturdier turns out to be empty too.</p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            Frameworks are easy to nod along to in the abstract. What's harder is telling, in practice, which closeness in your life is durable and which is borrowed from the room — and that turns out to be a question with an actual, testable idea behind it.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 04 -->
+      <section id="idea" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">04</span>
+          <span class="sec-tag">Idea</span>
+        </div>
+        <div class="sec-content">
+          <h2>4. The Idea</h2>
+          <div class="byline-src">Proximity Is Real, But Conditional — Leon Festinger</div>
+          
+          <p>Anyone who grew up in apartments or flats already knows this instinctively — and there's a study that proves it.</p>
+          
+          <p>The neighbours you actually became close to were rarely the ones who shared your interests or your generation. They were the ones two doors down, whose kids used the same corridor, who you passed at the lift often enough that not saying hello would have felt strange. Distance did more work than compatibility ever did.</p>
+          
+          <p>The psychologist Leon Festinger demonstrated this directly, tracking who became friends with whom among residents assigned, essentially at random, to apartments in a new graduate housing complex. The single strongest predictor of friendship turned out to have nothing to do with shared interests, background, or personality. It was distance — literally, how close two people's front doors were to each other, and how often their daily paths were forced to cross. People two doors apart were far more likely to become close than people at opposite ends of the same building. Proximity, it turned out, wasn't just a convenient setting for friendship. It was doing most of the actual work — the same logic an HDB estate runs on, block by block, whether or not anyone planning it called it that.</p>
+          
+          <p>This is a genuinely useful correction to the previous chapter's scepticism about default relationships — proximity is not a lesser path to closeness. Under the right conditions, it is the primary one. But Festinger's finding comes with a condition that is easy to miss: the contact his residents shared was repeated, unplanned, and low-stakes. Nobody was evaluating anybody in the stairwell. Running into a neighbour carried no performance implication, no risk, no agenda beyond the passing exchange itself. That absence of stakes was doing as much work as the proximity.</p>
+          
+          <p>The office reproduces the first condition almost perfectly — repeated, daily, unavoidable contact — while quietly failing the second. Almost nothing at work happens without some evaluative layer attached, however faint: the meeting where you're being assessed even when you're not being told so, the dinner that is also, somewhere underneath, a relationship being managed for a deadline. It isn't that colleagues can't become real friends. It's that the workplace's proximity comes bundled with a stake that a stairwell or a coffee shop never had to carry, and that stake quietly caps how much of yourself the relationship gets to hold.</p>
+          
+          <p>A useful working rule falls out of combining Festinger with the previous chapter: not every proximity deserves the same expectation. Some of it is genuinely friendship-generating — repeated, low-stakes, unevaluated contact, wherever you can still find it. Some of it is merely proximity — useful, real, but bounded by the structure that produced it. The actual skill, the one this whole issue is circling, is telling the two apart before you've quietly built an entire social life on the second kind alone.</p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            Frameworks are easy to nod along to in the abstract. The harder question is what this looks like for someone whose actual, physical day is spent almost entirely inside the one category of proximity that was never built to produce the other kind.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 05 -->
+      <section id="practice" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">05</span>
+          <span class="sec-tag">Practice</span>
+        </div>
+        <div class="sec-content">
+          <h2>5. In Practice</h2>
+          <div class="byline-src">Telling the Two Apart</div>
+          
+          <p>The problem with default relationships is not that they exist. It's that they never announce themselves as a substitute for something else — they simply, gradually, become the only thing left standing. A Friday drink with the team is easy to say yes to; a Friday drink with an old friend requires a text, a date found, a commute across the island, and the faint social risk of being told they're busy. Neither choice is wrong on its own. The pattern they add up to is.</p>
+          
+          <p>Consider how this happens without a single bad decision along the way. A friend from your twenties suggests dinner; you mean to reply properly and instead send a quick voice note between meetings. The voice note becomes an Instagram story reaction. The reaction becomes nothing, not through any falling-out, but because nothing ever forced the question. Meanwhile the work dinner needs no invitation at all — it is simply where you already are, at the time you'd otherwise have spent replying.</p>
+          
+          <p>None of this is an argument for treating your colleagues with suspicion, or feeling guilty for the closeness that does exist between you. Some of the best things about a working life are the people in it, and pretending otherwise would be its own kind of dishonesty. The problem starts only when that closeness becomes the default setting for all of it — including the handful of relationships that actually needed protecting from the default.</p>
+          
+          <p>The Common Places has no interest in prescribing who your friends should be, or handing you a script for reconnecting with someone you've drifted from. What we're interested in is a simpler, quieter test, applied honestly rather than defensively: <strong>would this relationship survive either of you leaving the company tomorrow?</strong> For some of your colleagues, the honest answer is yes — and that is worth noticing and keeping. For others, the honest answer is no, and that isn't an indictment of anyone. It's simply information about which category you're in, and a reason to make sure it isn't the only category left in your life.</p>
+
+          <p>The goal was never to make Wednesday dinners feel like a compromise, or to demand a monthly quota of old friends seen. It is to stop letting proximity decide, quietly and by default, who ends up mattering to you — before an entire decade has passed on the strength of who happened to be sitting nearest.</p>
+        </div>
+      </section>
+
+    </article>
+  </main>
+
+  <!-- RIGHT COLUMN: Editorial Signature Sidebar -->
+  <aside class="signature-panel">
+    <div class="panel-header">
+      <h3>Editorial Signature</h3>
+      <span class="panel-subtitle">Issue Nº003 Synthesis</span>
+    </div>
+
+    <div class="sig-block">
+      <h4>One Idea to Keep</h4>
+      <blockquote class="pull-quote">
+        Proximity can start a friendship, but only the parts of it that ask nothing of you keep it going. The relationships worth calling friendship are the ones that would survive the room being taken away.
+      </blockquote>
+    </div>
+
+    <div class="sig-block">
+      <h4>Go Further</h4>
+      <p class="panel-subtitle" style="margin-bottom: 0.75rem;">Three places to continue the conversation:</p>
+      <ul class="panel-links">
+        <li>
+          <a href="#">
+            <h5>The Great Good Place</h5>
+            <p>Ray Oldenburg — Why friendship used to form in places that asked nothing of you.</p>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <h5>The Strength of Weak Ties</h5>
+            <p>Mark Granovetter — Why the relationships that feel less close often do more than the ones that feel closest.</p>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <h5>What Makes a Good Life</h5>
+            <p>Robert Waldinger — Eight decades of research pointing at the same, unglamorous answer.</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="omission-box">
+      <h4>What We Chose Not to Include</h4>
+      <p>We deliberately left out networking advice, apps built for making adult friends, and step-by-step scripts for reconnecting with someone you've drifted from. Those tools can genuinely help. But technique was never the question this issue was built to answer. Before you reach out to anyone, the harder and prior question stands unanswered: which of your closeness was actually chosen, and which was simply the last person left in the room?</p>
+      <p>We also chose not to publish a straightforward list of "how to make friends in your forties." That format performs the solution without ever naming the actual problem — it hands you steps to take before you've worked out whether you're solving the right thing. The purpose of this issue was never to tell you who to call. It was to make the difference between proximity and friendship visible enough that you can start telling them apart yourself.</p>
+      <p class="mission-statement">The Common Places is not trying to tell you who your friends should be. It is trying to help you notice, before the calendar quietly fills in the answer for you, which closeness you actually chose — and which was simply the nearest room.</p>
+    </div>
+  </aside>
+
+</div>
+
+<footer class="site-footer">
+  <div class="wrap row">
+    <div>
+      <h4>The Common Places</h4>
+      <p class="colophon">A publication dedicated to the questions, spaces, and quiet trade-offs shaping modern life.</p>
+    </div>
+    <div>
+      <h4>Issues</h4>
+      <ul>
+        <li><a href="issue-001.html">Issue 001</a></li>
+        <li><a href="issue-002.html">Issue 002</a></li>
+        <li><a href="issue-003.html">Issue 003</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#">Archive</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
