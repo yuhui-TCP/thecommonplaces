@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Issue Nº007: The Unprofitable Hour — The Common Places</title>
+<meta name="description" content="Why “for what?” is the first thing we ask of an hour — and what it costs to always have an answer.">
+
+<style>
+/* ==========================================================================
+   DESIGN SYSTEM GUIDELINES
+   Palette: Paper (#F4F1EA), Ink (#1A1A18), Gray (#6B6862), Accent (#B08D57 / #C85A32)
+   Typography: Two-family max (Serif headlines/quotes, Sans body/meta/nav)
+   Rules: Hairlines only (1px solid), strictly left-aligned, no cards/shadows
+   ========================================================================== */
+
+:root {
+  --paper: #F4F1EA;
+  --ink: #1A1A18;
+  --gray: #6B6862;
+  --accent: #B08D57; /* Gold accent matching the logo mark */
+  --signal-red: #C85A32; /* Warm desaturated red accent */
+  --rule-color: #D6D2C8;
+  --rule-dark: #1A1A18;
+  
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  --wrap-max: 1280px;
+  --header-height: 80px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--paper);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px; /* Monocle dense, serious body text */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Global Layout Grid --- */
+.wrap {
+  max-width: var(--wrap-max);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* --- Site Header & Brand Mark Logo --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--paper);
+  border-bottom: 1px solid var(--rule-color);
+  z-index: 1000;
+  padding: 0.75rem 0;
+}
+
+.site-header .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Typographic Logo based on TCP Logo Horizontal image */
+.brand-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.brand-logo .logo-top {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  padding-bottom: 3px;
+  border-bottom: 1.5px solid var(--accent);
+  margin-bottom: 3px;
+}
+
+.brand-logo .logo-middle {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo .logo-middle .dot-c,
+.brand-logo .logo-middle .dot-n {
+  position: relative;
+}
+
+.brand-logo .logo-middle .dot-c::after {
+  content: "•";
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.brand-logo .logo-middle .dot-n::after {
+  content: "•";
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.brand-logo .logo-bottom {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.48em;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+nav.primary a {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  text-decoration: none;
+  margin-left: 2rem;
+  transition: color 0.15s ease;
+}
+
+nav.primary a:hover,
+nav.primary a[aria-current="page"] {
+  color: var(--ink);
+}
+
+/* --- 5-Step Journey Navigation Bar --- */
+.journey-bar {
+  position: sticky;
+  top: 73px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+  z-index: 900;
+  padding: 0.6rem 0;
+}
+
+.journey-nav {
+  display: flex;
+  gap: 2.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.journey-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.journey-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+  text-decoration: none;
+}
+
+.journey-nav a .num {
+  color: var(--signal-red);
+  font-weight: 700;
+}
+
+.journey-nav a:hover,
+.journey-nav a.active {
+  color: var(--ink);
+}
+
+/* --- Page Layout: Main Flow vs Side Panel --- */
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px; /* Main content vs Dedicated Right Panel */
+  gap: 4rem;
+  align-items: start;
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+}
+
+/* --- Masthead Section --- */
+.issue-masthead {
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.meta-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.issue-masthead h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 3.5vw, 3rem);
+  line-height: 1.15;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.02em;
+}
+
+.dek {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--gray);
+  max-width: 58ch;
+  margin: 0 0 1.5rem 0;
+}
+
+.manifesto-intro {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 2px solid var(--accent);
+  padding-left: 1rem;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.masthead-spec {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule-color);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray);
+}
+
+.masthead-spec span strong {
+  color: var(--ink);
+}
+
+/* --- Editorial 5-Step Flow --- */
+.editorial-section {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 2rem;
+  padding: 3.5rem 0;
+  border-bottom: 1px solid var(--rule-color);
+}
+
+.sec-gutter {
+  font-family: var(--font-sans);
+}
+
+.sec-num {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--signal-red);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.sec-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  display: block;
+  font-weight: 600;
+}
+
+.sec-content {
+  max-width: 60ch;
+}
+
+.sec-content h2 {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 0.25rem 0;
+  color: var(--ink);
+}
+
+.byline-src {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+  margin: 0 0 1.75rem 0;
+  font-weight: 600;
+}
+
+.sec-content p {
+  margin-bottom: 1.25rem;
+}
+
+.sec-content strong {
+  font-weight: 600;
+}
+
+.sec-content em {
+  font-style: italic;
+}
+
+.styled-list {
+  padding-left: 1.2rem;
+  margin: 1.5rem 0;
+}
+
+.styled-list li {
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+
+/* Bridges */
+blockquote.bridge {
+  margin: 3rem 0 1rem 0;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.bridge-tag {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   SEPARATE RIGHT PANEL: EDITORIAL SIGNATURE
+   ========================================================================== */
+.signature-panel {
+  position: sticky;
+  top: calc(73px + 2rem);
+  border-left: 1px solid var(--ink);
+  padding-left: 2rem;
+}
+
+.panel-header {
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.panel-header h3 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  margin: 0 0 0.25rem 0;
+}
+
+.panel-subtitle {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  display: block;
+  font-weight: 600;
+}
+
+.sig-block {
+  margin-bottom: 2rem;
+}
+
+.sig-block h4 {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin: 0 0 0.75rem 0;
+}
+
+.pull-quote {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.45;
+  color: var(--ink);
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+}
+
+.panel-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.panel-links li {
+  border-bottom: 1px solid var(--rule-color);
+  padding: 0.85rem 0;
+}
+
+.panel-links li:last-child {
+  border-bottom: none;
+}
+
+.panel-links a {
+  text-decoration: none;
+  color: var(--ink);
+  display: block;
+}
+
+.panel-links a:hover h5 {
+  color: var(--signal-red);
+}
+
+.panel-links h5 {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.25;
+}
+
+.panel-links p {
+  font-size: 12px;
+  color: var(--gray);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.omission-box {
+  background-color: #ECE8DF;
+  border: 1px solid var(--rule-color);
+  padding: 1.25rem;
+  margin-top: 2rem;
+}
+
+.omission-box h4 {
+  color: var(--ink);
+  margin-top: 0;
+  border-bottom: 1px solid var(--rule-color);
+  padding-bottom: 0.5rem;
+}
+
+.omission-box p {
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.5;
+  margin-bottom: 0.85rem;
+}
+
+.omission-box p:last-child {
+  margin-bottom: 0;
+}
+
+.mission-statement {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px !important;
+  color: var(--ink) !important;
+  border-top: 1px solid var(--rule-color);
+  padding-top: 0.85rem;
+  margin-top: 0.85rem;
+}
+
+/* --- Site Footer --- */
+.site-footer {
+  border-top: 1px solid var(--ink);
+  padding: 3rem 0;
+  margin-top: 4rem;
+  background-color: var(--paper);
+}
+
+.site-footer .row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+}
+
+.site-footer h4 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.colophon {
+  font-size: 12px;
+  color: var(--gray);
+  max-width: 36ch;
+  margin: 0;
+}
+
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.site-footer li {
+  margin-bottom: 0.4rem;
+}
+
+.site-footer a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.site-footer a:hover {
+  color: var(--ink);
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 960px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .signature-panel {
+    position: static;
+    border-left: none;
+    border-top: 1px solid var(--ink);
+    padding-left: 0;
+    padding-top: 2.5rem;
+  }
+
+  .editorial-section {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .site-footer .row {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap row">
+    <a href="index.html" class="brand-logo" aria-label="The Common Places">
+      <span class="logo-top">THE</span>
+      <span class="logo-middle"><span class="dot-c">C</span>OMMO<span class="dot-n">N</span></span>
+      <span class="logo-bottom">PLACES</span>
+    </a>
+    <nav class="primary">
+      <a href="index.html">Home</a>
+      <a href="issue-007.html" aria-current="page">Issue 07</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Sticky 5-Step Journey Bar -->
+<nav class="journey-bar" aria-label="Journey steps in this issue">
+  <div class="wrap journey-nav">
+    <a href="#question" class="active"><span class="num">01</span><span>The Question</span></a>
+    <a href="#backstory"><span class="num">02</span><span>The Backstory</span></a>
+    <a href="#complication"><span class="num">03</span><span>The Complication</span></a>
+    <a href="#idea"><span class="num">04</span><span>The Idea</span></a>
+    <a href="#practice"><span class="num">05</span><span>In Practice</span></a>
+  </div>
+</nav>
+
+<div class="wrap page-grid">
+
+  <!-- LEFT COLUMN: Main Editorial Journey (Steps 1–5) -->
+  <main class="main-column">
+
+    <section class="issue-masthead">
+      <span class="meta-label">ISSUE Nº007 — THE UNPROFITABLE HOUR</span>
+      <h1>Why “for what?” is the first thing we ask of an hour — and what it costs to always have an answer</h1>
+      <p class="dek">Doing something because you want to needs no excuse. So why do we keep giving one — and why does everyone keep asking for it?</p>
+      
+      <p class="manifesto-intro">
+        <em>For people who have been asked “for what?” about something they did purely because they wanted to — and for those who have asked it, kindly, without thinking.</em> We begin with a question — about hobbies, worth, and who gets to ask — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in the real world.
+      </p>
+
+      <div class="masthead-spec">
+        <span>Structure: <strong>5-Step Journey</strong></span>
+        <span>Reading Time: <strong>~18 min</strong></span>
+        <span>Subject: <strong>Hobbies &amp; Worth</strong></span>
+      </div>
+    </section>
+
+    <article class="editorial-flow">
+
+      <!-- STEP 01 -->
+      <section id="question" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">01</span>
+          <span class="sec-tag">Question</span>
+        </div>
+        <div class="sec-content">
+          <h2>1. The Question</h2>
+          <div class="byline-src">Monday morning, by the pantry, a weekend of clay.</div>
+          
+          <p>Someone asks how your weekend was, and because it's early and you're in a good mood, you tell the truth. Saturday afternoon went on a pottery class you signed up for on a whim: three hours, two lopsided bowls, clay under your fingernails until Monday. Your colleague's face lights up. Then comes the second question, gentle and curious, with that small lift at the end. <em>For what?</em> Or, in its warmer form: <em>You should sell those, you know.</em></p>
+          
+          <p>Nothing about this exchange was unkind. It happens many times a week, over lunch, in family group chats, in the first minute of meeting a friend's friend, and it feels very much like interest. But look at what the question actually did. You offered an afternoon. In return you were invited to account for it: to name what it produced, who it was for, where it might lead. The first half of the exchange was a report. The second half was an audit. And you, being polite, answered the audit — <em>oh, just for fun only</em> — and watched the conversation move to safer ground.</p>
+          
+          <p>This is a strange kind of transaction, because nobody in it is behaving badly. The asker may be sincerely curious, even complimentary. Your answer is perfectly true: it was for fun. What is odd is the way “for fun” has to be delivered, in a small voice, with a “just” or an “only” placed in front of it like a cushion. An hour that was spent exactly as you wished arrives at the end of the conversation already half-excused.</p>
+          
+          <p>Multiply that exchange across a life, and a larger shape appears. The running route described as “keeping fit”, because at least that sounds like it is for something. The bake nobody pays for, the guitar in the corner, the sketchbook kept in a drawer, the model kit that takes three Sundays. Each is mentioned lightly and defended quickly. The side hustle has made the follow-up almost reflexive: any skill, however modest, now looks like a business that has not yet been launched.</p>
+          
+          <p>Call it <em>the unprofitable hour</em>, to separate it from rest. Rest is the hour that repairs you for tomorrow's work, which means it has a purpose, and the purpose is more work. The hour in question repairs nothing, prepares you for nothing, and leads nowhere in particular. It is, in the plainest sense, for nothing — which is exactly what makes it so hard to say out loud.</p>
+          
+          <p>This is the question this issue exists to sit with: <strong>if an hour spent on something for its own sake needs no excuse, why do we so reliably supply one — and why do the people asking so reliably expect it?</strong></p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            Before treating this as a small failure of nerve, it's worth going back to a moment when someone wrote the excuse down in advance, before a single person had asked for it — and seeing what became of the hour.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 02 -->
+      <section id="backstory" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">02</span>
+          <span class="sec-tag">Backstory</span>
+        </div>
+        <div class="sec-content">
+          <h2>2. The Backstory</h2>
+          <div class="byline-src">Linus Torvalds and a newsgroup post, 1991</div>
+          
+          <p>On 25 August 1991, a student at the University of Helsinki posted a short message to a Usenet newsgroup for users of Minix, a small operating system used for teaching. He was, he explained, building an operating system of his own, and he wanted to know what people liked and disliked about Minix, since his project resembled it in places. Tucked into the opening line, in parentheses, was a description of what the thing was: “<em>just a hobby, won't be big and professional like gnu.</em>”</p>
+          
+          <p>The student was Linus Torvalds, and at that moment he was nobody in particular, an unknown computer science student from Finland. The first version ran to about ten thousand lines of code. He had not even settled on a name for it. He thought “Linux” sounded too egotistical, and a co-worker who looked after the server where the files were kept uploaded it under that name without asking him. Nobody involved was building a brand.</p>
+          
+          <p>What followed is one of the best-known stories in computing. Within months, the author of Minix himself, Andrew Tanenbaum, posted an article titled “Linux is obsolete”, which began a famous argument about how the thing was built. The project survived the argument and grew into one of the foundations of modern computing.</p>
+          
+          <p>But the detail worth sitting with isn't the sequel. It's the parenthesis. Before anyone had asked “for what?”, he had answered, and the answer was a disclaimer: small, unserious, not to be taken seriously. It works as an apology paid in advance, a way of lowering the stakes before an audience can raise them.</p>
+          
+          <p>And notice what he did not say. He did not say it would be useful, or profitable, or that anyone ought to care. He said it was his, it was free, and he wanted feedback. Whatever that afternoon was for, it was not for the sequel, because he could not have known there would be one. Years later he gave his memoir a title, <em>Just for Fun</em>, that makes the same point from the other end.</p>
+          
+          <p>Singapore's version is quieter, and it mostly arrives with a smile. It rarely sounds like a post to a newsgroup. It sounds like “just for fun only”, said to a colleague, an aunt, a classmate's parent; it sounds like the “for what?” that follows. The hours behind it are real and usually modest: an evening class, a Saturday, forty minutes with a sketchbook on the way home. What is worth noticing is what the sentence does with those hours. It turns something chosen into something that has to be excused, and the excuse always takes the same shape: it's small, it's harmless, it isn't serious.</p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            Which invites a tidy conclusion: that the hedge is false modesty, and that every hobby is a business that hasn't happened yet. It's the obvious reading — and it's worth testing before accepting it.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 03 -->
+      <section id="complication" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">03</span>
+          <span class="sec-tag">Complication</span>
+        </div>
+        <div class="sec-content">
+          <h2>3. The Complication</h2>
+          <div class="byline-src">The Case for “For What?”</div>
+          
+          <p>The tidy conclusion has real support. If every hobby is a business waiting to happen, then “for what?” is simply a friendly question about the business plan, and the person asking is doing you a favour. For a growing number of people, that is exactly how it is. In July, a Bloomberg report profiled a 32-year-old personal assistant who sells second-hand clothes through TikTok livestreams three evenings a week, earning about S$500 a month on top of a salary of almost S$4,000. The extra pays for her insurance and her dog, and she calls it a safety net. The same report cited a Randstad survey from January finding that almost a third of workers in Singapore feel they need to combine a full-time job with some other source of income to get by.</p>
+          
+          <p>In that setting, “you should sell those” is not a throwaway remark. It may be the most practical thing a friend can say, and “for what?” may be asked by someone who is quietly worried about your rent. This is the first complication: the question is often asked out of care, and “for nothing” can sound like a luxury to people who have been counting.</p>
+          
+          <p>The second is survivorship. Linux is the exception that everyone remembers. For every hobby that grew into something enormous there are countless others that stayed exactly as small as their makers intended, and that was fine. If the lesson of 1991 were “do pointless things and they will pay off”, it would be wrong, and you would be right to distrust it. Torvalds' parenthesis cannot be read as a promise.</p>
+          
+          <p>The third is the question this issue began with: why do we answer at all? The most plausible explanation is an incentive. Our hours are visible, and what we say about them tells other people what kind of person we are. An hour with a defensible answer — good for stress, might sell, building a portfolio — costs nothing to defend. An hour with no answer invites a raised eyebrow, a joke, a quietly lowered estimate. So we pre-empt the eyebrow with a small sentence, and because the sentence is cheap, it spreads.</p>
+          
+          <p>That is the real complication. The person saying “just for fun only” is neither timid nor naive. They are responding sensibly to a world in which time is scarce, money is tight and every hour is asked, sooner or later, for a business case. Which is why the usual advice — protect your passions, do what you love — has such a poor record. It asks someone to ignore a question that is being put to them, often with affection, by people they depend on.</p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            If the question can't simply be waved away, the problem shifts: what, exactly, is the hour being asked to become — and is there a way to hold both the need to earn and an hour that isn't for that?
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 04 -->
+      <section id="idea" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">04</span>
+          <span class="sec-tag">Idea</span>
+        </div>
+        <div class="sec-content">
+          <h2>4. The Idea</h2>
+          <div class="byline-src">For Nothing</div>
+          
+          <p>Begin with a word. We call the things we do for pleasure our <em>interests</em>. It is also the word for what capital earns: the return on whatever has been put in. English has been using a single word for the thing you are drawn to and the thing you are owed back. The question “for what?” quietly asks the first kind of interest to behave like the second. It wants the hour to show a rate of return.</p>
+          
+          <p>There is a well-known piece of evidence for what that request can do. In 1973, the psychologists Mark Lepper, David Greene and Richard Nisbett studied preschool children who already loved drawing with felt-tip markers. Some were told in advance that they would receive a “Good Player” certificate for drawing, and then received it. Others were given the same certificate as a surprise, and others nothing at all. Two weeks later, when the markers were put out again during free play, the children who had expected the certificate drew markedly less, roughly half as much of their free time by one account, than either of the other groups. The surprise group drew as much as ever.</p>
+          
+          <p>The certificate was not the problem. The children who received it unexpectedly were unaffected. The expectation was. Drawing had become a means to something else, and an activity that was once an interest in the first sense had become one in the second. Nothing about the drawing changed. What changed was who it was for.</p>
+          
+          <p>An honest limit is worth stating. The study involved young children and one kind of reward, and the effect is real but not universal: later work suggests it depends on whether the reward is expected and tied to doing the thing. It is not a law that money ruins hobbies, and plenty of people sell what they make and love it. We also found no study of how this plays out here, and it would be a mistake to pretend otherwise. What the research does establish is more modest and more useful: an activity can change owners without changing at all.</p>
+          
+          <p>This reframes both Torvalds and the Bloomberg numbers in the same light. Torvalds' parenthesis was not modesty about the code. It was a statement about who owned the hour: not an audience, not a market, him. The woman selling second-hand clothes is making a different and entirely reasonable decision, turning an hour into a means because there are bills to pay. Neither is mistaken. What they share is that the exchange rate between an hour and a return is something people set, and can set differently from one hour to the next.</p>
+          
+          <p>That gives us a distinction worth keeping: not between the hobbyist and the professional, but between an hour that has to answer to someone and an hour that doesn't. Most lives can hold both: hours that earn and hours that are for nothing. The trouble begins when the second kind is asked to apply to become the first, when every hour needs a business case, and the hours that are for nothing begin to feel like the ones you haven't yet managed to put to use.</p>
+          
+          <p>Call the practice <em>for nothing</em>. As an answer it is complete. It isn't an apology, because it carries no “just”. It isn't a boast, because it carries no “but I'm learning so much”. And it isn't a refusal to be asked. It says only that this hour is mine and does not have to become anything. It also protects the person who needs the income: someone can sell second-hand clothes three evenings a week and still keep a Sunday that is for nothing. What matters is that the Sunday never has to apply.</p>
+          
+          <p>Take away the sequel to see how it works. Suppose that 1991 project had stayed at ten thousand lines with a few dozen curious users. Would that August afternoon have been worth less? Most of us would say no. The hour was complete before anything came of it. Nothing that happened later could make it more worth spending, and nothing needed to. That is the test of an unprofitable hour: it survives the removal of its ending.</p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            Ideas like this are easy to agree with in the abstract. The harder question is what changes the next time someone asks — and your answer is already half-formed.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 05 -->
+      <section id="practice" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">05</span>
+          <span class="sec-tag">Practice</span>
+        </div>
+        <div class="sec-content">
+          <h2>5. In Practice</h2>
+          <div class="byline-src">Answering for Nothing</div>
+          
+          <p>The problem with the excuse is that it never feels like a decision. “Oh, just for fun only” is built to be said before the question has finished arriving. It feels like modesty, and often it is a courtesy: it spares the asker any obligation to be impressed. That is exactly why nothing ever interrupts it.</p>
+          
+          <p>Consider how quietly it accumulates. The pottery becomes something you mention less. The running is described as “keeping fit”, which at least sounds like it is for something. Eventually you notice that your free hours have been re-described, one by one, into things with outcomes: good for stress, building a portfolio, maybe I'll sell. Nothing was taken from you. You gave each hour a job because it seemed ungracious to leave it idle. A hobby kept entirely as a project is no longer a hobby. It is an unpaid second job that happens to be pleasant.</p>
+          
+          <p>None of this is an argument against earning, or against anyone who sells what they make; many people need to, and some love it. Nor is it an argument that you stand outside the game. You are, in all likelihood, asking “for what?” of someone this week.</p>
+          
+          <p>The Common Places has no interest in telling you how to spend your Saturday. What we're interested in is a quieter test, applied from both sides. When you are asked, say “for nothing” and stop. No “just”, no “only”, no hurried account of what you're getting out of it. Notice what happens next. We suspect the conversation will mostly move on, but we haven't measured it, and the point isn't the reaction. The point is that you did not have to pay.</p>
+          
+          <p>When you are the one asking, swap “for what?” and “you should sell that” for a question about the thing itself: <em>How does it feel when it goes well? Show me.</em> It costs nothing, and it does something small and real: it makes “for nothing” a safe answer for the next person, who may well be you.</p>
+          
+          <p>If you want to run this as an experiment, try it for a week. Notice each time you reach for the excuse, and each time you reach for the question. Keep a tally if you like. By the end of the week you will probably have a clearer sense of which of your hours you have quietly given jobs to, and which you have kept.</p>
+
+          <p>The goal was never to stop earning, or planning, or being practical. It is to know that somewhere in the week there is an hour that has not applied for anything and does not need a reference. The question was always allowed. The duty to answer it was never part of the deal.</p>
+        </div>
+      </section>
+
+    </article>
+
+  </main>
+
+  <!-- RIGHT COLUMN: Editorial Signature & Issue Extras -->
+  <aside class="signature-panel">
+    <div class="panel-header">
+      <h3>Editorial Signature</h3>
+      <span class="panel-subtitle">Issue Nº007 Insights</span>
+    </div>
+
+    <div class="sig-block">
+      <h4>One Idea to Keep</h4>
+      <blockquote class="pull-quote">
+        “For what?” is a fair question. It is just not always one you owe an answer to.
+      </blockquote>
+    </div>
+
+    <div class="sig-block">
+      <h4>Go Further</h4>
+      <ul class="panel-links">
+        <li>
+          <a href="#">
+            <h5>“Three dates, not one, to mark creation of Linux: Torvalds” — iTWire</h5>
+            <p>Torvalds on the first announcement, the first code drops, and why the origin of Linux has more than one birthday.</p>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <h5>“The overjustification effect” — atticusli.com</h5>
+            <p>A plain-language account of the 1973 marker study, including where the effect holds and where it doesn't.</p>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <h5>“Singapore’s young workers cling to side hustles to survive the AI age” — South China Morning Post</h5>
+            <p>Why, for many workers here, the pastime is also the safety net, and what that does to the question “for what?”</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="omission-box">
+      <h4>What We Chose Not to Include</h4>
+      <p>We deliberately left out guides to turning a hobby into a business, lists of side-hustle ideas, and advice on how to monetise a passion well. Those tools can genuinely help once the decision to earn has been made, and for many readers it has been. But the question this issue was built to sit with comes first: why every hour is asked to show a return at all.</p>
+      <p>P.S. We also chose not to publish a ranking of worthy hobbies, or a checklist for telling a “real” one from a hustle in disguise. That hands over a verdict instead of a practice, and it would make this issue one more way of deciding whose Saturday counts — which is, more or less, the habit it set out to examine. Nor did we treat Linux as proof that unprofitable hours pay off. It is a story about an hour that was worth spending before anything came of it, and that is the only part we wanted to keep.</p>
+      <p class="mission-statement">The Common Places is not trying to tell you how to spend your Saturday, or whether to sell what you make. It is trying to help you notice, the next time someone asks what it's for, that the answer was never owed.</p>
+    </div>
+  </aside>
+
+</div>
+
+<footer class="site-footer">
+  <div class="wrap row">
+    <div>
+      <h4>The Common Places</h4>
+      <p class="colophon">A publication dedicated to sitting with the quiet, structural questions of modern everyday life.</p>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="issue-007.html">Issue 07</a></li>
+        <li><a href="about.html">About</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Edition</h4>
+      <ul>
+        <li><a href="#">Issue Nº007</a></li>
+        <li><a href="#">The Unprofitable Hour</a></li>
+        <li><a href="#">Singapore Edition</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
