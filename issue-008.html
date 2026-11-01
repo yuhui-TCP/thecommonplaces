@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Issue Nº008: The Old Light — The Common Places</title>
+<meta name="description" content="Why the people we know are always a few years out of date in our heads — and what it costs never to check the date.">
+
+<style>
+/* ==========================================================================
+   DESIGN SYSTEM GUIDELINES
+   Palette: Paper (#F4F1EA), Ink (#1A1A18), Gray (#6B6862), Accent (#B08D57 / #C85A32)
+   Typography: Two-family max (Serif headlines/quotes, Sans body/meta/nav)
+   Rules: Hairlines only (1px solid), strictly left-aligned, no cards/shadows
+   ========================================================================== */
+
+:root {
+  --paper: #F4F1EA;
+  --ink: #1A1A18;
+  --gray: #6B6862;
+  --accent: #B08D57; /* Gold accent matching the logo mark */
+  --signal-red: #C85A32; /* Warm desaturated red accent */
+  --rule-color: #D6D2C8;
+  --rule-dark: #1A1A18;
+  
+  --font-serif: "Georgia", "Times New Roman", serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  
+  --wrap-max: 1280px;
+  --header-height: 80px;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--paper);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 15px; /* Monocle dense, serious body text */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- Global Layout Grid --- */
+.wrap {
+  max-width: var(--wrap-max);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* --- Site Header & Brand Mark Logo --- */
+.site-header {
+  position: sticky;
+  top: 0;
+  background-color: var(--paper);
+  border-bottom: 1px solid var(--rule-color);
+  z-index: 1000;
+  padding: 0.75rem 0;
+}
+
+.site-header .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Typographic Logo based on TCP Logo Horizontal image */
+.brand-logo {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--ink);
+  line-height: 1;
+}
+
+.brand-logo .logo-top {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  padding-bottom: 3px;
+  border-bottom: 1.5px solid var(--accent);
+  margin-bottom: 3px;
+}
+
+.brand-logo .logo-middle {
+  font-family: var(--font-sans);
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.brand-logo .logo-middle .dot-c,
+.brand-logo .logo-middle .dot-n {
+  position: relative;
+}
+
+.brand-logo .logo-middle .dot-c::after {
+  content: "•";
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.brand-logo .logo-middle .dot-n::after {
+  content: "•";
+  position: absolute;
+  bottom: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--accent);
+}
+
+.brand-logo .logo-bottom {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.48em;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+nav.primary a {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  text-decoration: none;
+  margin-left: 2rem;
+  transition: color 0.15s ease;
+}
+
+nav.primary a:hover,
+nav.primary a[aria-current="page"] {
+  color: var(--ink);
+}
+
+/* --- 5-Step Journey Navigation Bar --- */
+.journey-bar {
+  position: sticky;
+  top: 73px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+  z-index: 900;
+  padding: 0.6rem 0;
+}
+
+.journey-nav {
+  display: flex;
+  gap: 2.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+
+.journey-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.journey-nav a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+  text-decoration: none;
+}
+
+.journey-nav a .num {
+  color: var(--signal-red);
+  font-weight: 700;
+}
+
+.journey-nav a:hover,
+.journey-nav a.active {
+  color: var(--ink);
+}
+
+/* --- Page Layout: Main Flow vs Side Panel --- */
+.page-grid {
+  display: grid;
+  grid-template-columns: 1fr 360px; /* Main content vs Dedicated Right Panel */
+  gap: 4rem;
+  align-items: start;
+  padding-top: 3rem;
+  padding-bottom: 5rem;
+}
+
+/* --- Masthead Section --- */
+.issue-masthead {
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 2.5rem;
+  margin-bottom: 3rem;
+}
+
+.meta-label {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.issue-masthead h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 3.5vw, 3rem);
+  line-height: 1.15;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.02em;
+}
+
+.dek {
+  font-size: 1.1rem;
+  line-height: 1.5;
+  color: var(--gray);
+  max-width: 58ch;
+  margin: 0 0 1.5rem 0;
+}
+
+.manifesto-intro {
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--ink);
+  border-left: 2px solid var(--accent);
+  padding-left: 1rem;
+  margin: 1.5rem 0 2rem 0;
+}
+
+.masthead-spec {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule-color);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--gray);
+}
+
+.masthead-spec span strong {
+  color: var(--ink);
+}
+
+/* --- Editorial 5-Step Flow --- */
+.editorial-section {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 2rem;
+  padding: 3.5rem 0;
+  border-bottom: 1px solid var(--rule-color);
+}
+
+.sec-gutter {
+  font-family: var(--font-sans);
+}
+
+.sec-num {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--signal-red);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.sec-tag {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  display: block;
+  font-weight: 600;
+}
+
+.sec-content {
+  max-width: 60ch;
+}
+
+.sec-content h2 {
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 0.25rem 0;
+  color: var(--ink);
+}
+
+.byline-src {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--gray);
+  margin: 0 0 1.75rem 0;
+  font-weight: 600;
+}
+
+.sec-content p {
+  margin-bottom: 1.25rem;
+}
+
+.sec-content strong {
+  font-weight: 600;
+}
+
+.sec-content em {
+  font-style: italic;
+}
+
+.styled-list {
+  padding-left: 1.2rem;
+  margin: 1.5rem 0;
+}
+
+.styled-list li {
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+
+/* Bridges */
+blockquote.bridge {
+  margin: 3rem 0 1rem 0;
+  padding: 1.25rem 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-style: italic;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.bridge-tag {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin-bottom: 0.4rem;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   SEPARATE RIGHT PANEL: EDITORIAL SIGNATURE
+   ========================================================================== */
+.signature-panel {
+  position: sticky;
+  top: calc(73px + 2rem);
+  border-left: 1px solid var(--ink);
+  padding-left: 2rem;
+}
+
+.panel-header {
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.panel-header h3 {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  margin: 0 0 0.25rem 0;
+}
+
+.panel-subtitle {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--gray);
+  display: block;
+  font-weight: 600;
+}
+
+.sig-block {
+  margin-bottom: 2rem;
+}
+
+.sig-block h4 {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  margin: 0 0 0.75rem 0;
+}
+
+.pull-quote {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  line-height: 1.45;
+  color: var(--ink);
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 2px solid var(--accent);
+}
+
+.panel-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.panel-links li {
+  border-bottom: 1px solid var(--rule-color);
+  padding: 0.85rem 0;
+}
+
+.panel-links li:last-child {
+  border-bottom: none;
+}
+
+.panel-links a {
+  text-decoration: none;
+  color: var(--ink);
+  display: block;
+}
+
+.panel-links a:hover h5 {
+  color: var(--signal-red);
+}
+
+.panel-links h5 {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.25;
+}
+
+.panel-links p {
+  font-size: 12px;
+  color: var(--gray);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.omission-box {
+  background-color: #ECE8DF;
+  border: 1px solid var(--rule-color);
+  padding: 1.25rem;
+  margin-top: 2rem;
+}
+
+.omission-box h4 {
+  color: var(--ink);
+  margin-top: 0;
+  border-bottom: 1px solid var(--rule-color);
+  padding-bottom: 0.5rem;
+}
+
+.omission-box p {
+  font-size: 12px;
+  color: var(--ink);
+  line-height: 1.5;
+  margin-bottom: 0.85rem;
+}
+
+.omission-box p:last-child {
+  margin-bottom: 0;
+}
+
+.mission-statement {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 13px !important;
+  color: var(--ink) !important;
+  border-top: 1px solid var(--rule-color);
+  padding-top: 0.85rem;
+  margin-top: 0.85rem;
+}
+
+/* --- Site Footer --- */
+.site-footer {
+  border-top: 1px solid var(--ink);
+  padding: 3rem 0;
+  margin-top: 4rem;
+  background-color: var(--paper);
+}
+
+.site-footer .row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+}
+
+.site-footer h4 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+}
+
+.colophon {
+  font-size: 12px;
+  color: var(--gray);
+  max-width: 36ch;
+  margin: 0;
+}
+
+.site-footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.site-footer li {
+  margin-bottom: 0.4rem;
+}
+
+.site-footer a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 12px;
+}
+
+.site-footer a:hover {
+  color: var(--ink);
+}
+
+/* --- Responsive Layout --- */
+@media (max-width: 960px) {
+  .page-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .signature-panel {
+    position: static;
+    border-left: none;
+    border-top: 1px solid var(--ink);
+    padding-left: 0;
+    padding-top: 2.5rem;
+  }
+
+  .editorial-section {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .site-footer .row {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap row">
+    <!-- Brand Mark Logo -->
+    <a href="index.html" class="brand-logo" aria-label="The Common Places">
+      <span class="logo-top">THE</span>
+      <span class="logo-middle"><span class="dot-c">C</span>OMMO<span class="dot-n">N</span></span>
+      <span class="logo-bottom">PLACES</span>
+    </a>
+    <nav class="primary">
+      <a href="index.html">Home</a>
+      <a href="issue-008.html" aria-current="page">Issue 08</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Sticky 5-Step Journey Bar -->
+<nav class="journey-bar" aria-label="Journey steps in this issue">
+  <div class="wrap journey-nav">
+    <a href="#question" class="active"><span class="num">01</span><span>The Question</span></a>
+    <a href="#backstory"><span class="num">02</span><span>The Backstory</span></a>
+    <a href="#complication"><span class="num">03</span><span>The Complication</span></a>
+    <a href="#idea"><span class="num">04</span><span>The Idea</span></a>
+    <a href="#practice"><span class="num">05</span><span>In Practice</span></a>
+  </div>
+</nav>
+
+<div class="wrap page-grid">
+
+  <!-- LEFT COLUMN: Main Editorial Journey (Steps 1–5) -->
+  <main class="main-column">
+
+    <section class="issue-masthead">
+      <span class="meta-label">ISSUE Nº008 — THE OLD LIGHT</span>
+      <h1>The Old Light</h1>
+      <p class="dek">Why the people we know are always a few years out of date in our heads — and what it costs never to check the date</p>
+      
+      <p class="manifesto-intro">
+        <em>For people who have been told “you haven't changed one bit” and weren't sure whether it was a compliment — and for those who have said it, warmly, across a table.</em> We begin with a question — about people, time, and the pictures we carry of one another — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in the real world.
+      </p>
+
+      <div class="masthead-spec">
+        <span>Structure: <strong>5-Step Journey</strong></span>
+        <span>Reading Time: <strong>~15 min</strong></span>
+        <span>Subject: <strong>Perception &amp; Time</strong></span>
+      </div>
+    </section>
+
+    <article class="editorial-flow">
+
+      <!-- STEP 01 -->
+      <section id="question" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">01</span>
+          <span class="sec-tag">Question</span>
+        </div>
+        <div class="sec-content">
+          <h2>1. The Question</h2>
+          <div class="byline-src">Sunday lunch, a cousin back from abroad, a dish being passed.</div>
+          
+          <p>A cousin you haven't seen in four years is in town, and the family has done what families do: a long table, too many dishes, everyone talking at once. Someone sends the sambal down the table, and your cousin, warm and quick, reaches out to intercept it. “Don't give him, he can't take spicy.” It was true once. It was true for most of the years she knew you. You have been eating the stuff by the spoonful for six years.</p>
+          
+          <p>You say so, lightly: actually, I'm okay now. The table laughs, the way tables do when a story gets updated, and for a moment the plate hovers between you. Then the conversation moves on. It is a small thing, over in ten seconds, and nobody has been unkind.</p>
+          
+          <p>But look at what happened. Your cousin did not make a mistake about you. She made an accurate observation, years ago, and she has been carrying it faithfully ever since. That is the strange thing about the picture: it was correct on the day it was taken. What has quietly gone wrong is that nothing on it says when that was.</p>
+          
+          <p>And it isn't only cousins. It happens at lunch tables and in family group chats, in the first minute of a school reunion and in the third year of working beside someone. The colleague who made one memorable mistake in their first month and is somehow still “the new one”. The parent who is assumed to be baffled by a phone they have been using perfectly well for years. The friend we describe as “the one who's always late”, based on a person who may no longer exist. We hold a picture of everyone we know, and we use it every day, mostly without noticing.</p>
+          
+          <p>Most of these pictures are not wrong, exactly. They are old, and an old picture has a particular property: it feels exactly as current as a new one. It shows no creases. Nothing about “he can't take spicy” announces that it was true four years ago and not this morning. We use it with the same confidence we would use something we had seen with our own eyes today.</p>
+          
+          <p>This is the question this issue exists to sit with: <strong>if the people we know keep changing whether or not we are watching, why do we keep acting on the version we last saw — and how would we even know how old it is?</strong></p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            Before filing this under ordinary carelessness, it's worth visiting a place where the delay isn't a figure of speech — and where, not long ago, a great many people reacted to news that was already hundreds of years old.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 02 -->
+      <section id="backstory" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">02</span>
+          <span class="sec-tag">Backstory</span>
+        </div>
+        <div class="sec-content">
+          <h2>2. The Backstory</h2>
+          <div class="byline-src">Betelgeuse, and a star that seemed to be dying, 2019–2020</div>
+          
+          <p>Betelgeuse is a red supergiant, a star in the late stage of its life, marking the shoulder of the hunter in the constellation Orion. Astronomers are confident that it will one day end in a supernova. In the autumn of 2019 it began to dim. This alone was not strange; Betelgeuse is a variable star, and its brightness rises and falls on a rhythm of its own. But this dip went further than any astronomers had recorded, deep enough that it became noticeable to the naked eye, and it kept going for months.</p>
+          
+          <p>Some astronomers began to wonder aloud whether this was the beginning of the end. It is an irresistible question, and it was asked widely. By February 2020 the star was at its faintest. And then, by April, it had simply recovered, back to its usual brightness, as though nothing had happened.</p>
+          
+          <p>The explanation, when it came, was almost anticlimactic. Using the European Southern Observatory's Very Large Telescope, and observations from the Hubble Space Telescope, teams concluded that the star had thrown off an enormous bubble of gas some time before. The gas cooled into dust, and the dust drifted across part of the star's face like a cloud across the sun, cutting the light from roughly a quarter of its surface for a few months. Then it moved on.</p>
+          
+          <p>But there is a line in every account of this story that is easy to skim past. Betelgeuse is somewhere around seven hundred light-years away; the estimates vary, from about 550 to about 725. Light takes that long to arrive. So the dimming that the world watched in 2019 and 2020 was not happening in 2019 and 2020. By NASA's reckoning, using the larger distance, it had happened around the year 1300, and the light was only now reaching us.</p>
+          
+          <p>Consider what that does to the question people had been asking. If Betelgeuse had exploded, the explosion would not have been the news. The news would have been that an explosion, centuries old, had finally become visible. The star everyone was worried about might have been gone for generations, or healthy and unremarkable for just as long. Either way, what we were looking at was a very old photograph, and we were reading it as a live feed.</p>
+          
+          <p>Astronomers are not naive about this; it is among the first things they learn. Every point of light in the night sky is a picture taken at a different time, and part of the work is figuring out how old each one is. The skill is not only in seeing. It is in knowing the date.</p>
+          
+          <p>And even a picture that old can be incomplete. In July 2025, astronomers announced the first direct detection of a companion star orbiting Betelgeuse: a smaller star circling the giant, long suspected but never actually seen, found using the Gemini North telescope in Hawaii. The star that so many people felt they knew had had company all along.</p>
+          
+          <p>Our version of this is smaller, and it mostly arrives with a smile. It rarely sounds like a headline about a dying star. It sounds like “you haven't changed one bit!” across a table, or “still at the same place ah?” from someone who stopped following your career several jobs ago, or a relative's carefully remembered detail about you that was last accurate when you were fifteen. Nobody means harm; often it is a form of fondness, because it proves they kept you in mind. What is worth noticing is what the sentence assumes: that the light we received is the star as it is now.</p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            Which invites a tidy lesson: the picture is old, so refresh it more often, and the problem is solved. It's the obvious reading, and it runs into some awkward facts, one of them hiding inside the same star.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 03 -->
+      <section id="complication" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">03</span>
+          <span class="sec-tag">Complication</span>
+        </div>
+        <div class="sec-content">
+          <h2>3. The Complication</h2>
+          <div class="byline-src">The Case for the Old Picture</div>
+          
+          <p>The tidy lesson has real support, but only up to a point, because an old picture is not a bad picture. Betelgeuse's centuries-old light still tells you what you most need to know about it: that it is large, red, cool, and nearing the end of its life. What it cannot tell you is what the star is doing this month. People work the same way. Most of what we know about someone we have known for years is still true: what makes them laugh, what they won't put up with, whether they are kind. The people who have known us longest are often right about us in ways newer acquaintances cannot be.</p>
+          
+          <p>Seen like that, “you haven't changed” is frequently not an oversight but a gift. It says: I recognised you, across the years and the distance, and you were still you. For someone who has moved abroad, or changed careers, or simply grown older, that recognition can feel like a kind of homecoming. This is the first complication: the old picture is often an act of loyalty, and updating it is not always an improvement on being known.</p>
+          
+          <p>The second is the opposite error, and the star shows it too. When Betelgeuse dimmed, the first reading was the most dramatic one: it is dying. It wasn't. A cloud of dust had passed across it. We do the same with people. One uncharacteristic outburst, one bad quarter, one thing said at a bad moment, and the newest data point becomes the new picture. A refreshed picture is not necessarily a truer one. Sometimes it is just a dust cloud, and the person is back to their usual brightness by April.</p>
+          
+          <p>The third is closer to home. We are surprisingly poor at seeing that our picture of ourselves is dated too. In 2013, the psychologists Jordi Quoidbach, Daniel Gilbert and Timothy Wilson asked more than 19,000 people, aged 18 to 68, how much they had changed over the past ten years and how much they expected to change over the next ten. In every age group, people reported having changed a good deal and predicted that they would change little. The present, it seems, feels like the point at which the work of becoming a person is finished.</p>
+          
+          <p>An honest limit is worth stating. That study asked people about themselves, not about how they see others, and we did not find research testing whether the same habit extends to the picture we carry of a cousin or a colleague. But the pattern is suggestive. The authors propose that people mistake how hard change is to imagine for how unlikely it is. If that is true of our own futures, it is hard to see why it would not be true of our pictures of other people.</p>
+          
+          <p>There is one more awkward truth, and it runs the other way. Some of us like the old picture. Being the funny cousin, the dependable one, the one who always brings the dessert, is a role with a script and an audience, and it is easier than being a stranger who has to be introduced again. So the table that keeps passing the plate past you is not always at fault. Sometimes we keep the old picture alive from the inside, because it is comfortable to be easy to read.</p>
+          
+          <p>That is the real complication. The trouble is not that the picture is old. It is that it feels live. A picture of someone taken four years ago looks, in our heads, exactly as fresh as one taken this morning, and nothing on it tells us which is which. The usual advice (keep in touch, stay curious, don't assume) runs into the same wall. Nobody can refresh every picture of everyone they know. There are too many people and too few Sundays.</p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            If the old picture can't be thrown away and the newest sample can't simply replace it, the problem changes: not how to stop having pictures, but how to hold one while knowing its age.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 04 -->
+      <section id="idea" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">04</span>
+          <span class="sec-tag">Idea</span>
+        </div>
+        <div class="sec-content">
+          <h2>4. The Idea</h2>
+          <div class="byline-src">Last Seen</div>
+          
+          <p>Begin with a label you have almost certainly seen today. Open a chat on WhatsApp and, beneath a contact's name, you may find the words <em>last seen today at 9:41</em>. It is a small, plain thing, and it does something we rarely do for the people in our heads: it dates the information. It doesn't claim to tell you how the person is. It tells you only when they were last there. And notice what it leaves out: it records when someone last used the app, not when anyone last looked at them.</p>
+          
+          <p>Call the practice <strong>last seen</strong>. Each of us carries one of these for everyone we know, only without the label: a version of the person, taken at some point, that we consult as if it were live. The idea is simply to read the timestamp. Before you act on a picture, say to yourself when it was taken.</p>
+          
+          <p>That sounds simple, and it is, but it changes three things. The first is that it separates the picture from the person. “He can't take spicy” becomes “he couldn't take spicy, last I checked”: the same sentence, with a date attached and a door left open. The second is that it tells you what kind of thing you are holding. The astronomer reading old light does not throw it away; she knows what it is good for. A star's colour and size change slowly, so centuries-old light still tells her the truth about those. What it cannot tell her is what the star is doing right now. People work the same way. What makes someone laugh, what they value, how they treat others: these keep well. Their job, their patience, how they are coping, what they care about this year: these go off quickly.</p>
+
+          <p>The third is subtler, and it is where the dust cloud comes back in. A date protects you from the opposite mistake too. If a picture is timestamped, a single bad day looks like what it is: one timestamp, not a new picture. You are not replacing the old light with the newest flicker. You are waiting, as the astronomers did, to see whether the star returns to its usual brightness. Often it does, and when it doesn't, you will know the change was real.</p>
+          
+          <p>An honest limit: astronomers can calculate the delay. They know how far away the star is, so they know how old its light is. We have no distance for a person. The nearest thing we have is a date, and an honest one: when did I last actually talk to them about this? Not when did I last see their name in a group chat, or a photo from a holiday. When did they last tell me, in their own words?</p>
+          
+          <p>The arrangement also runs both ways. You are, for a great many people, a picture taken some years ago: a version of you at a particular job, in a particular city, in a particular mood. You cannot reach into their heads and change it. But you can do something the star cannot. You can send fresh light. A passing, specific, current detail (“actually, I like it now”, “I've moved teams”, “I took that up again”) costs ten seconds, and it is often all it takes to update a picture that someone was glad to update.</p>
+          
+          <p>There is a simple test of whether the practice is working. For any picture you carry, could you say how old it is? If you can, you are holding it as a picture. If you can't, you are probably holding it as a fact.</p>
+
+          <blockquote class="bridge">
+            <span class="bridge-tag">Bridge</span>
+            Ideas like this are easy to agree with in the abstract. The harder question is what changes the next time someone says “he can't” or “she won't” — and the picture in your head is already half-formed.
+          </blockquote>
+        </div>
+      </section>
+
+      <!-- STEP 05 -->
+      <section id="practice" class="editorial-section">
+        <div class="sec-gutter">
+          <span class="sec-num">05</span>
+          <span class="sec-tag">Practice</span>
+        </div>
+        <div class="sec-content">
+          <h2>5. In Practice</h2>
+          <div class="byline-src">Dating the Picture</div>
+          
+          <p>The trouble with the old picture is that it never feels like a decision. It surfaces mid-sentence, in the half-second before you say what someone would or wouldn't want: “he won't come, he doesn't like crowds”, “she's not into that”, “don't bother asking, he's always busy”. Each one is said kindly, often on the other person's behalf. That is exactly why nothing interrupts it.</p>
+          
+          <p>Consider how quietly it accumulates. The invitation that doesn't get sent because he wouldn't have come. The gift chosen for the person someone was five years ago. The introduction that never happens because the two of them are “not each other's type”. Nobody is punished; it simply means that, in each of those moments, a person was treated as the version of themselves that was easiest to remember. Most of us, offered the same role often enough, agree to play it.</p>
+          
+          <p>None of this is an argument for suspicion of what you know, or for treating every conversation as a fresh interview. The old picture is usually most of what makes a friendship quick. Nor is it an argument that you stand outside the pattern. In all likelihood, someone is carrying an old picture of you right now.</p>
+          
+          <p>The Common Places has no interest in making you anxious about your memory. What we are interested in is a small practice with three moves, all of which you can try this week.</p>
+          
+          <p>The first is to listen for the sentence that begins “he won't” or “she always” or “he can't”, in your own mouth before anyone else's, and to add the date silently: <em>as of when?</em> Often the answer will be fine: last month, last week. Sometimes it will be a surprise.</p>
+          
+          <p>The second is to try it before the next time you see someone you haven't seen in a while. Write down, in one line, what you think you know about them. Then, when you meet, ask one question whose answer you genuinely can't predict, about the thing itself rather than the summary: not “still at the same place?” but “what's been taking up your time lately?” Let the answer replace one line of the old picture, and no more.</p>
+          
+          <p>The third is the one that costs something. When someone hands you the old picture (“he can't take spicy”), don't argue and don't make a speech. Give them one current detail, lightly, and pass the plate. You are not correcting them. You are sending a little fresh light.</p>
+          
+          <p>If you want to run this as an experiment, try it for a week. Notice each time you reach for “always” or “never” or “he's not the type”, and each time you hear it said about you. Keep a tally if you like. By the end of the week you will probably have a clearer sense of how many of your pictures have a date you could name, and how many you have been holding as if they were taken this morning.</p>
+          
+          <p>The goal was never to know everyone up to the minute. That has never been possible; the light is always late, and the people we love most have lives we are not part of. It is to know the date. The label on our phones tells us when someone last opened the app. It has never told us when we last really looked at them. That one we have to keep ourselves.</p>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <!-- RIGHT COLUMN: Editorial Signature Panel -->
+  <aside class="signature-panel">
+    <div class="panel-header">
+      <h3>Editorial Signature</h3>
+      <span class="panel-subtitle">Issue Nº008 Overview</span>
+    </div>
+
+    <div class="sig-block">
+      <h4>One Idea to Keep</h4>
+      <blockquote class="pull-quote">
+        Everyone you know is a picture with a date on it. You don't have to refresh every one. You only have to be able to say how old it is.
+      </blockquote>
+    </div>
+
+    <div class="sig-block">
+      <h4>Go Further</h4>
+      <ul class="panel-links">
+        <li>
+          <a href="#">
+            <h5>“Hubble finds that Betelgeuse's mysterious dimming is due to a traumatic outburst” — NASA</h5>
+            <p>NASA's account of what caused the Great Dimming, including the reminder that the light we saw had left the star around the year 1300.</p>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <h5>“Betelgeuse is not alone as it travels through space” — Astronomy</h5>
+            <p>On the companion star announced in July 2025, and the wake it leaves in Betelgeuse's atmosphere.</p>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <h5>“Why you'll always think your big changes are behind you” — Big Think</h5>
+            <p>A plain-language account of the 2013 “end of history illusion” study, and the authors' suggested reasons for it.</p>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="omission-box">
+      <h4>What We Chose Not to Include</h4>
+      <p>We deliberately left out advice on staying in touch: scripts for reconnecting, conversation starters for reunions, and apps for remembering birthdays. Those can genuinely help, and many readers would like them. But the question this issue was built to sit with comes earlier: what we do with a picture before we have had the chance to update it.</p>
+      <p>We also chose not to settle how much people actually change over a lifetime, which is a large and unsettled body of research and not one a single issue should pretend to summarise. Nor did we explain light-years or how a supernova works. One fact was needed from astronomy, that what you see is old, and that is the only part we kept. Finally, we did not treat Betelgeuse as a warning that nothing can be trusted. The star turned out to be fine. It is a story about reading a picture as though it were live, and that is the only part we wanted to keep.</p>
+      <p class="mission-statement">
+        The Common Places is not trying to make you distrust what you know about the people you love. It is trying to help you notice, the next time you say “he's always been like that”, that the sentence has a date on it.
+      </p>
+    </div>
+  </aside>
+
+</div>
+
+<footer class="site-footer">
+  <div class="wrap row">
+    <div>
+      <h4>The Common Places</h4>
+      <p class="colophon">A publication dedicated to examining the unnoticed patterns, habits, and assumptions shaping contemporary life.</p>
+    </div>
+    <div>
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="#question">Current Issue</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Archive</h4>
+      <ul>
+        <li><a href="issue-001.html">Issue 001</a></li>
+        <li><a href="issue-002.html">Issue 002</a></li>
+        <li><a href="issue-008.html">Issue 008</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
