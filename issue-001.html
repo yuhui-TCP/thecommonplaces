@@ -502,52 +502,159 @@ blockquote.bridge {
 }
 
 /* --- Site Footer --- */
+/* --- Site Footer --- */
 .site-footer {
   border-top: 1px solid var(--ink);
-  padding: 3rem 0;
+  padding: 4rem 0 2.5rem 0;
   margin-top: 4rem;
   background-color: var(--paper);
 }
 
-.site-footer .row {
+.footer-top {
   display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 3rem;
+  grid-template-columns: 1.4fr 2fr 0.8fr;
+  gap: 3.5rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--rule-color);
 }
 
 .site-footer h4 {
-  font-size: 11px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  margin-top: 0;
-  margin-bottom: 0.75rem;
+  color: var(--signal-red);
+  margin: 0 0 1rem 0;
+}
+
+.footer-brand {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0 0 0.75rem 0;
+  letter-spacing: -0.01em;
 }
 
 .colophon {
-  font-size: 12px;
+  font-size: 13px;
+  line-height: 1.6;
   color: var(--gray);
-  max-width: 36ch;
-  margin: 0;
+  max-width: 34ch;
+  margin: 0 0 1.25rem 0;
 }
 
-.site-footer ul {
+.footer-location {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* 9-Issue Archive Index Grid */
+.issue-index-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem 1.5rem;
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.site-footer li {
-  margin-bottom: 0.4rem;
+.issue-index-grid a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  text-decoration: none;
+  color: var(--gray);
+  font-size: 12px;
+  transition: color 0.15s ease;
 }
 
-.site-footer a {
+.issue-index-grid a .idx-num {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+}
+
+.issue-index-grid a:hover {
+  color: var(--ink);
+}
+
+.issue-index-grid a[aria-current="page"] {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.issue-index-grid a[aria-current="page"] .idx-num {
+  color: var(--signal-red);
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.55rem;
+}
+
+.footer-links a {
   color: var(--gray);
   text-decoration: none;
   font-size: 12px;
+  transition: color 0.15s ease;
 }
 
-.site-footer a:hover {
+.footer-links a:hover {
   color: var(--ink);
+}
+
+/* Bottom Colophon Strip */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1.5rem;
+  font-size: 11px;
+  color: var(--gray);
+  letter-spacing: 0.04em;
+}
+
+.back-to-top {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.back-to-top:hover {
+  color: var(--signal-red);
+}
+
+/* --- Responsive Footer --- */
+@media (max-width: 960px) {
+  .footer-top {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .issue-index-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
 }
 
 /* --- Responsive Layout --- */
@@ -850,25 +957,86 @@ blockquote.bridge {
 </div>
 
 <footer class="site-footer">
-  <div class="wrap row">
-    <div>
-      <h4>The Common Places</h4>
-      <p class="colophon">A publication about judgment, curation, and attention — one question per issue, argued properly.</p>
+  <div class="wrap">
+    <div class="footer-top">
+      
+      <!-- Column 1: Colophon & Identity -->
+      <div>
+        <h4>Colophon</h4>
+        <div class="footer-brand">The Common Places</div>
+        <p class="colophon">A publication about judgment, curation, and attention — one question per issue, argued properly.</p>
+        <span class="footer-location">Edited in Singapore</span>
+      </div>
+
+      <!-- Column 2: Complete 9-Issue Archive Index -->
+      <div>
+        <h4>Archive Index (001 — 009)</h4>
+        <ul class="issue-index-grid" id="footer-issue-index">
+          <!-- Fallback static links if JS is disabled -->
+          <li><a href="issue-001.html"><span class="idx-num">001</span> The Filter Problem</a></li>
+          <li><a href="issue-002.html"><span class="idx-num">002</span> Issue Two</a></li>
+          <li><a href="issue-003.html"><span class="idx-num">003</span> Issue Three</a></li>
+          <li><a href="issue-004.html"><span class="idx-num">004</span> Issue Four</a></li>
+          <li><a href="issue-005.html"><span class="idx-num">005</span> Issue Five</a></li>
+          <li><a href="issue-006.html"><span class="idx-num">006</span> Issue Six</a></li>
+          <li><a href="issue-007.html"><span class="idx-num">007</span> Issue Seven</a></li>
+          <li><a href="issue-008.html"><span class="idx-num">008</span> Issue Eight</a></li>
+          <li><a href="issue-009.html"><span class="idx-num">009</span> Issue Nine</a></li>
+        </ul>
+      </div>
+
+      <!-- Column 3: Navigation -->
+      <div>
+        <h4>Publication</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home &amp; Masthead</a></li>
+          <li><a href="about.html">About &amp; Manifesto</a></li>
+          <li><a href="issue-001.html">Start at Nº001</a></li>
+        </ul>
+      </div>
+
     </div>
-    <div>
-      <h4>Read</h4>
-      <ul>
-        <li><a href="issue-002.html">Issue 02</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>About</h4>
-      <ul>
-        <li><a href="about.html">About this publication</a></li>
-      </ul>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 The Common Places. Set in Georgia &amp; System Sans.</span>
+      <a href="#" class="back-to-top">Back to top &uarr;</a>
     </div>
   </div>
 </footer>
+
+<script>
+  (function () {
+    // Update titles here once across your files as you finalize issues 002-009
+    const issues = [
+      { num: "001", title: "The Filter Problem", file: "issue-001.html" },
+      { num: "002", title: "Issue Two",          file: "issue-002.html" },
+      { num: "003", title: "Issue Three",        file: "issue-003.html" },
+      { num: "004", title: "Issue Four",         file: "issue-004.html" },
+      { num: "005", title: "Issue Five",         file: "issue-005.html" },
+      { num: "006", title: "Issue Six",          file: "issue-006.html" },
+      { num: "007", title: "Issue Seven",        file: "issue-007.html" },
+      { num: "008", title: "Issue Eight",        file: "issue-008.html" },
+      { num: "009", title: "Issue Nine",         file: "issue-009.html" }
+    ];
+
+    const list = document.getElementById("footer-issue-index");
+    if (!list) return;
+
+    const currentFile = window.location.pathname.split("/").pop() || "issue-001.html";
+
+    list.innerHTML = issues.map(issue => {
+      const isCurrent = currentFile === issue.file;
+      return `
+        <li>
+          <a href="${issue.file}" ${isCurrent ? 'aria-current="page"' : ''}>
+            <span class="idx-num">${issue.num}</span>
+            <span>${issue.title}</span>
+          </a>
+        </li>
+      `;
+    }).join("");
+  })();
+</script>
 
 </body>
 </html>
