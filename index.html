@@ -138,7 +138,14 @@ body {
   margin-top: 5px;
 }
 
-nav.primary a {
+nav.primary {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+nav.primary > a,
+.archive-menu summary {
   font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 600;
@@ -146,13 +153,111 @@ nav.primary a {
   letter-spacing: 0.12em;
   color: var(--gray);
   text-decoration: none;
-  margin-left: 2rem;
+  cursor: pointer;
+  list-style: none;
   transition: color 0.15s ease;
 }
 
-nav.primary a:hover,
-nav.primary a[aria-current="page"] {
+.archive-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.archive-menu summary::after {
+  content: " +";
+  color: var(--signal-red);
+}
+
+.archive-menu[open] summary::after {
+  content: " −";
+}
+
+nav.primary > a:hover,
+nav.primary > a[aria-current="page"],
+.archive-menu summary:hover,
+.archive-menu[open] summary {
   color: var(--ink);
+}
+
+/* Hairline Editorial Dropdown */
+.archive-menu {
+  position: relative;
+}
+
+.archive-dropdown {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 1.15rem);
+  width: 300px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background-color: var(--paper);
+  border: 1px solid var(--ink);
+  padding: 1rem 1.25rem;
+  z-index: 1001;
+}
+
+.archive-header {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--signal-red);
+  padding-bottom: 0.6rem;
+  margin-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule-color);
+}
+
+.archive-dropdown ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.archive-dropdown li {
+  border-bottom: 1px solid var(--rule-color);
+}
+
+.archive-dropdown li:last-child {
+  border-bottom: none;
+}
+
+.archive-dropdown a {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding: 0.55rem 0;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.archive-dropdown a span {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--gray);
+  flex-shrink: 0;
+}
+
+.archive-dropdown a:hover,
+.archive-dropdown a:hover span {
+  color: var(--signal-red);
+}
+
+@media (max-width: 640px) {
+  nav.primary {
+    gap: 1.1rem;
+  }
+  .archive-dropdown {
+    position: fixed;
+    left: 1rem;
+    right: 1rem;
+    top: 72px;
+    width: auto;
+  }
 }
 
 /* --- Hero Section --- */
@@ -369,24 +474,34 @@ nav.primary a[aria-current="page"] {
 
 <header class="site-header">
   <div class="wrap row">
-    <!-- Reconstructed Typographic Logo -->
     <a href="index.html" class="brand-logo" aria-label="The Common Places">
       <span class="logo-top">THE</span>
       <span class="logo-middle"><span class="dot-c">C</span>OMMO<span class="dot-n">N</span></span>
       <span class="logo-bottom">PLACES</span>
     </a>
-    <nav class="primary">
+
+    <nav class="primary" aria-label="Primary Navigation">
       <a href="index.html" aria-current="page">Home</a>
-      <a href="issue-001.html">Issue 01</a>
-       <a href="issue-002.html">Issue 02</a>
-       <a href="issue-003.html">Issue 03</a>
-       <a href="issue-004.html">Issue 04</a>
-       <a href="issue-005.html">Issue 05</a>
-       <a href="issue-006.html">Issue 06</a>
-       <a href="issue-007.html">Issue 07</a>
-        <a href="issue-008.html">Issue 08</a>
-       <a href="issue-009.html">Issue 09</a>
-       
+      <a href="issue-009.html">Latest</a>
+
+      <details class="archive-menu">
+        <summary>Issues (09)</summary>
+        <div class="archive-dropdown">
+          <div class="archive-header">Complete Archive</div>
+          <ul>
+            <li><a href="issue-009.html"><span>Nº009</span> The Quiet One</a></li>
+            <li><a href="issue-008.html"><span>Nº008</span> The Old Light</a></li>
+            <li><a href="issue-007.html"><span>Nº007</span> The Unprofitable Hour</a></li>
+            <li><a href="issue-006.html"><span>Nº006</span> The Apology Economy</a></li>
+            <li><a href="issue-005.html"><span>Nº005</span> The Permission Problem</a></li>
+            <li><a href="issue-004.html"><span>Nº004</span> The Achievement Trap</a></li>
+            <li><a href="issue-003.html"><span>Nº003</span> The Proximity Trap</a></li>
+            <li><a href="issue-002.html"><span>Nº002</span> The Convenience Trap</a></li>
+            <li><a href="issue-001.html"><span>Nº001</span> The Filter Problem</a></li>
+          </ul>
+        </div>
+      </details>
+
       <a href="about.html">About</a>
     </nav>
   </div>
