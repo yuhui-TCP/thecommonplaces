@@ -396,10 +396,20 @@ nav.primary > a[aria-current="page"],
 }
 
 /* --- Site Footer --- */
+/* Remove bottom border from principle-strip so it doesn't double-up with footer */
+.principle-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+  padding: 4rem 0;
+  /* border-bottom removed */
+}
+
+/* --- Site Footer --- */
 .site-footer {
   border-top: 1px solid var(--ink);
-  padding: 3rem 0;
-  margin-top: 2rem;
+  padding: 3.5rem 0 4rem;
+  margin-top: 0;
   background-color: var(--paper);
 }
 
@@ -407,20 +417,33 @@ nav.primary > a[aria-current="page"],
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
   gap: 3rem;
+  align-items: start;
 }
 
 .site-footer h4 {
-  font-size: 11px;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-top: 0;
-  margin-bottom: 0.75rem;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  margin: 0 0 0.85rem 0;
 }
 
 .colophon {
-  font-size: 12px;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink);
+  max-width: 38ch;
+  margin: 0 0 1.25rem 0;
+}
+
+.colophon-meta {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  letter-spacing: 0.04em;
   color: var(--gray);
-  max-width: 36ch;
   margin: 0;
 }
 
@@ -431,17 +454,18 @@ nav.primary > a[aria-current="page"],
 }
 
 .site-footer li {
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.5rem;
 }
 
 .site-footer a {
   color: var(--gray);
   text-decoration: none;
-  font-size: 12px;
+  font-size: 13px;
+  transition: color 0.15s ease;
 }
 
 .site-footer a:hover {
-  color: var(--ink);
+  color: var(--signal-red);
 }
 
 /* --- Responsive Layout --- */
@@ -1124,28 +1148,25 @@ nav.primary > a[aria-current="page"],
     <div>
       <h4>The Common Places</h4>
       <p class="colophon">A publication about judgment, curation, and attention — one question per issue, argued properly.</p>
+      <p class="colophon-meta">Issues Nº001–Nº009 &middot; Slow, on purpose</p>
     </div>
-    <div>
+
+    <nav aria-label="Footer Reading Links">
       <h4>Read</h4>
       <ul>
-        <li><a href="issue-001.html">Issue 01</a></li>
-        <li><a href="issue-002.html">Issue 02</a></li>
-         <li><a href="issue-003.html">Issue 03</a></li>
-         <li><a href="issue-004.html">Issue 04</a></li>
-         <li><a href="issue-005.html">Issue 05</a></li>
-         <li><a href="issue-006.html">Issue 06</a></li>
-          <li><a href="issue-007.html">Issue 07</a></li>
-         <li><a href="issue-008.html">Issue 08</a></li>
-         <li><a href="issue-009.html">Issue 09</a></li>
-         
+        <li><a href="issue-009.html">Latest — Nº009: The Quiet One</a></li>
+        <li><a href="issue-001.html">Start Here — Nº001: The Filter Problem</a></li>
+        <li><a href="#">Back to top &uarr;</a></li>
       </ul>
-    </div>
-    <div>
-      <h4>About</h4>
+    </nav>
+
+    <nav aria-label="Footer About Links">
+      <h4>Publication</h4>
       <ul>
         <li><a href="about.html">About this publication</a></li>
+        <li><a href="about.html#principles">Editorial principles</a></li>
       </ul>
-    </div>
+    </nav>
   </div>
 </footer>
 
