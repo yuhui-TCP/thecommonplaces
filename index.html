@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Common Places — Issue Nº001: The Filter Problem</title>
+<title>The Common Places — Issue Nº009: The Quiet One</title>
 
 <style>
 /* ==========================================================================
@@ -109,16 +109,7 @@ body {
   position: relative;
 }
 
-.brand-logo .logo-middle .dot-c::after {
-  content: "•";
-  position: absolute;
-  bottom: -9px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 10px;
-  color: var(--accent);
-}
-
+.brand-logo .logo-middle .dot-c::after,
 .brand-logo .logo-middle .dot-n::after {
   content: "•";
   position: absolute;
@@ -260,7 +251,7 @@ nav.primary > a[aria-current="page"],
   }
 }
 
-/* --- Hero Section --- */
+/* --- Lead Hero Section (Latest Issue) --- */
 .hero {
   display: grid;
   grid-template-columns: 1fr 380px;
@@ -326,7 +317,7 @@ nav.primary > a[aria-current="page"],
   background-color: var(--signal-red);
 }
 
-/* Hero Right Side Feature Card */
+/* Hero Right Side Feature Cover */
 .side-card {
   border-left: 1px solid var(--rule-color);
   padding-left: 2rem;
@@ -338,7 +329,6 @@ nav.primary > a[aria-current="page"],
   padding: 0;
   margin-bottom: 1rem;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
 }
 
 .cover-svg {
@@ -361,8 +351,8 @@ nav.primary > a[aria-current="page"],
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2.5rem;
-  padding: 4rem 0;
-  border-bottom: 1px solid var(--rule-color);
+  padding: 3.5rem 0;
+  border-bottom: 1px solid var(--ink);
 }
 
 .principle-item {
@@ -380,7 +370,7 @@ nav.primary > a[aria-current="page"],
   display: block;
 }
 
-.principle-item h4 {
+.principle-item h2 {
   font-family: var(--font-serif);
   font-size: 1.35rem;
   font-weight: 400;
@@ -395,14 +385,128 @@ nav.primary > a[aria-current="page"],
   margin: 0;
 }
 
-/* --- Site Footer --- */
-/* Remove bottom border from principle-strip so it doesn't double-up with footer */
-.principle-strip {
+/* --- Archive Section Header --- */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 3.5rem 0 1.25rem;
+  border-bottom: 1px solid var(--rule-color);
+  margin-bottom: 2.5rem;
+}
+
+.section-header h2 {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.section-header span {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 14px;
+  color: var(--gray);
+}
+
+/* --- 3-Column Hairline Archive Grid --- */
+.archive-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2.5rem;
-  padding: 4rem 0;
-  /* border-bottom removed */
+  gap: 3.5rem 2.5rem;
+  padding-bottom: 4.5rem;
+}
+
+.archive-item {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border-top: 1px solid var(--rule-color);
+  padding-top: 1.25rem;
+}
+
+.archive-item .cover-container {
+  margin-bottom: 1.25rem;
+  transition: border-color 0.15s ease;
+}
+
+.archive-item:hover .cover-container {
+  border-color: var(--ink);
+}
+
+.archive-item .eyebrow {
+  margin-bottom: 0.45rem;
+}
+
+.archive-item h3 {
+  font-family: var(--font-serif);
+  font-size: 1.45rem;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--ink);
+  margin: 0 0 0.65rem 0;
+  transition: color 0.15s ease;
+}
+
+.archive-item:hover h3 {
+  color: var(--signal-red);
+}
+
+.archive-item p {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--gray);
+  margin: 0 0 1.25rem 0;
+}
+
+.archive-item .read-link {
+  margin-top: auto;
+  font-family: var(--font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  transition: color 0.15s ease;
+}
+
+.archive-item:hover .read-link {
+  color: var(--signal-red);
+}
+
+/* --- Start Here Callout Banner --- */
+.start-here-band {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  padding: 3rem 0;
+  border-top: 1px solid var(--rule-color);
+}
+
+.start-here-band h2 {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  font-weight: 400;
+  line-height: 1.25;
+  margin: 0 0 0.5rem 0;
+  color: var(--ink);
+}
+
+.start-here-band p {
+  font-size: 14px;
+  color: var(--gray);
+  margin: 0;
+  max-width: 60ch;
+}
+
+.start-here-band .cta-wrap {
+  display: flex;
+  justify-content: flex-end;
 }
 
 /* --- Site Footer --- */
@@ -487,9 +591,29 @@ nav.primary > a[aria-current="page"],
     gap: 2.5rem;
   }
 
+  .archive-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.5rem 2rem;
+  }
+
+  .start-here-band {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .start-here-band .cta-wrap {
+    justify-content: flex-start;
+  }
+
   .site-footer .row {
     grid-template-columns: 1fr;
     gap: 2rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .archive-grid {
+    grid-template-columns: 1fr;
   }
 }
 </style>
@@ -530,617 +654,379 @@ nav.primary > a[aria-current="page"],
     </nav>
   </div>
 </header>
-<main class="wrap">
-<!-- Featured Issue Section: Issue 009 -->
-<section class="hero">
-  <div>
-    <span class="eyebrow">Issue Nº009</span>
-    <h1>If a quiet person is simply listening, thinking or content, why do we keep asking what’s wrong — and who is the question really for?</h1>
-    <p class="issue-subtitle">The Quiet One — why “you’re so quiet today” is a question about the room, and what it asks of the person who hears it</p>
-    <p class="dek">For people who have been asked why they’re so quiet and answered with a joke — and for those who asked, kindly, so the table could get going again. We begin with a question — about silence, rooms, and who a question is really for — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in the real world.</p>
-    <a class="cta-button" href="issue-009.html">Read The Quiet One</a>
-  </div>
-
-  <div class="side-card">
-    <div class="cover-container">
-      <!-- SVG Artwork for Issue 009 Cover -->
-      <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 009 Cover Artwork: The Quiet One">
-        <!-- Background Paper -->
-        <rect width="900" height="1150" fill="#DDD8CE"/>
-        
-        <!-- Top Left Label -->
-        <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 009</text>
-        <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
-        
-        <!-- Top Right Subtitle -->
-        <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">SILENCE NEEDS</text>
-        <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">NO EXPLANATION</text>
-        <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">ONLY A DOOR</text>
-
-        <!-- Main Serif Headline -->
-        <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
-        <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Quiet</text>
-        <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">One</text>
-
-        <!-- Graphic Elements (The Room, The Spotlight vs. The Open Door / On-Silent Receiver) -->
-        <g transform="translate(140, 410)">
-          <!-- Outer Grid / Table Horizon Lines -->
-          <line x1="0" y1="500" x2="620" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,8"/>
-          <line x1="0" y1="250" x2="620" y2="250" stroke="#6B6862" stroke-width="1" stroke-dasharray="4,8"/>
-          
-          <!-- Ambient Room Soundwaves (Active / Outward) -->
-          <path d="M 120 180 A 110 110 0 0 1 120 340" fill="none" stroke="#1A1A18" stroke-width="2"/>
-          <path d="M 155 140 A 165 165 0 0 1 155 380" fill="none" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
-          <path d="M 190 100 A 220 220 0 0 1 190 420" fill="none" stroke="#6B6862" stroke-width="1" stroke-dasharray="3,6"/>
-
-          <!-- The Spotlight / "Ringing" Vector aimed across the table -->
-          <line x1="120" y1="260" x2="430" y2="260" stroke="#C85A32" stroke-width="3"/>
-          <circle cx="120" cy="260" r="10" fill="#C85A32"/>
-
-          <!-- The "On Silent" Node (Active & Receiving, Not Announcing) -->
-          <circle cx="450" cy="260" r="95" fill="none" stroke="#1A1A18" stroke-width="2"/>
-          <circle cx="450" cy="260" r="12" fill="#B08D57"/>
-          
-          <!-- The Open Door (Architectural Threshold Break on Right) -->
-          <line x1="545" y1="130" x2="545" y2="215" stroke="#1A1A18" stroke-width="3"/>
-          <line x1="545" y1="305" x2="545" y2="390" stroke="#1A1A18" stroke-width="3"/>
-          <!-- Swung Door Leaf -->
-          <line x1="545" y1="215" x2="605" y2="170" stroke="#B08D57" stroke-width="3"/>
-          <path d="M 545 305 A 90 90 0 0 0 605 170" fill="none" stroke="#6B6862" stroke-width="1.2" stroke-dasharray="3,5"/>
-
-          <!-- Vertical Plumb Lines to Floor -->
-          <line x1="120" y1="260" x2="120" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
-          <line x1="450" y1="260" x2="450" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
-        </g>
-
-        <!-- Translucent Geometric Accent Overlay -->
-        <rect x="220" y="470" width="460" height="420" fill="#1A1A18" fill-opacity="0.08" stroke="#1A1A18" stroke-width="1.5"/>
-      </svg>
-    </div>
-    <p class="cover-caption">Why “you’re so quiet today” is a question about the room — and what it asks of the person who hears it.</p>
-  </div>
-</section>
-   
-<main class="wrap">
-<!-- Featured Issue Section: Issue 008 -->
-<section class="hero">
-  <div>
-    <span class="eyebrow">Issue Nº008</span>
-    <h1>The Old Light</h1>
-    <p class="issue-subtitle">Why the people we know are always a few years out of date in our heads — and what it costs never to check the date</p>
-    <p class="dek">For people who have been told “you haven't changed one bit” and weren't sure whether it was a compliment — and for those who have said it, warmly, across a table. We begin with a question — about people, time, and the pictures we carry of one another — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in the real world.</p>
-    <a class="cta-button" href="issue-008.html">Read The Old Light</a>
-  </div>
-
-  <div class="side-card">
-    <div class="cover-container">
-      <!-- SVG Artwork for Issue 008 Cover -->
-      <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 008 Cover Artwork: The Old Light">
-        <!-- Background Paper -->
-        <rect width="900" height="1150" fill="#DDD8CE"/>
-        
-        <!-- Top Left Label -->
-        <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 008</text>
-        <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
-        
-        <!-- Top Right Subtitle -->
-        <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHY THE PEOPLE</text>
-        <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WE KNOW ARE ALWAYS</text>
-        <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">OUT OF DATE</text>
-
-        <!-- Main Serif Headline -->
-        <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
-        <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Old</text>
-        <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Light</text>
-
-        <!-- Graphic Elements (Stellar Light Rays & Delayed Perception Diagram) -->
-        <g transform="translate(140, 410)">
-          <!-- Outer Grid / Floor lines -->
-          <line x1="0" y1="500" x2="620" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,8"/>
-          <line x1="0" y1="250" x2="620" y2="250" stroke="#6B6862" stroke-width="1" stroke-dasharray="4,8"/>
-          
-          <!-- Distant Light Source (Betelgeuse / Past Image) -->
-          <circle cx="120" cy="180" r="45" fill="none" stroke="#C85A32" stroke-width="2"/>
-          <circle cx="120" cy="180" r="12" fill="#C85A32"/>
-
-          <!-- Light Travel Vectors & Time Delay Lines -->
-          <line x1="120" y1="180" x2="500" y2="350" stroke="#C85A32" stroke-width="2.5" stroke-dasharray="8,6"/>
-          <line x1="120" y1="180" x2="120" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,6"/>
-          
-          <!-- Observer / Present Node -->
-          <circle cx="500" cy="350" r="10" fill="#1A1A18"/>
-          <line x1="500" y1="350" x2="500" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
-
-          <!-- Evolving Real-Time Position (Unseen Companion / Divergent Reality) -->
-          <circle cx="500" cy="180" r="8" fill="#B08D57"/>
-          <line x1="120" y1="180" x2="500" y2="180" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="3,6"/>
-          <line x1="500" y1="180" x2="500" y2="350" stroke="#B08D57" stroke-width="1.5" stroke-dasharray="4,4"/>
-        </g>
-
-        <!-- Translucent Geometric Accent Overlay -->
-        <rect x="220" y="470" width="460" height="420" fill="#1A1A18" fill-opacity="0.08" stroke="#1A1A18" stroke-width="1.5"/>
-      </svg>
-    </div>
-    <p class="cover-caption">The friends we haven’t seen in years stay the same in our memory, while they go on quietly changing.</p>
-  </div>
-</section>
-<main class="wrap">
-<!-- Featured Issue Section: Issue 007 -->
-<section class="hero">
-  <div>
-    <span class="eyebrow">Issue Nº007</span>
-    <h1>Doing something because you want to needs no excuse. So why do we keep giving one — and why does everyone keep asking for it?</h1>
-    <p class="issue-subtitle">The Unprofitable Hour — why “for what?” is the first thing we ask of an hour, and what it costs to always have an answer</p>
-    <p class="dek">For people who have been asked “for what?” about something they did purely because they wanted to — and for those who have asked it, kindly, without thinking. We begin with a question — about hobbies, worth, and who gets to ask — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in the real world.</p>
-    <a class="cta-button" href="issue-007.html">Read The Unprofitable Hour</a>
-  </div>
-
-  <div class="side-card">
-    <div class="cover-container">
-      <!-- SVG Artwork for Issue 007 Cover -->
-      <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 007 Cover Artwork: The Unprofitable Hour">
-        <!-- Background Paper -->
-        <rect width="900" height="1150" fill="#DDD8CE"/>
-        
-        <!-- Top Left Label -->
-        <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 007</text>
-        <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
-        
-        <!-- Top Right Subtitle -->
-        <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHY "FOR WHAT?" IS</text>
-        <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">THE FIRST THING WE</text>
-        <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">ASK OF AN HOUR</text>
-
-        <!-- Main Serif Headline -->
-        <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
-        <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Unprofitable</text>
-        <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Hour</text>
-
-        <!-- Graphic Elements (Diagram of Time & Unmeasured Value) -->
-        <g transform="translate(140, 410)">
-          <!-- Outer Grid / Floor lines -->
-          <line x1="0" y1="500" x2="620" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,8"/>
-          <line x1="0" y1="250" x2="620" y2="250" stroke="#6B6862" stroke-width="1" stroke-dasharray="4,8"/>
-          
-          <!-- Measured Productive Axis vs Free Hour -->
-          <line x1="100" y1="100" x2="100" y2="450" stroke="#1A1A18" stroke-width="2"/>
-          <line x1="100" y1="450" x2="520" y2="450" stroke="#1A1A18" stroke-width="2"/>
-
-          <!-- Curved ROI Path vs Unbound Free Node -->
-          <path d="M 100 450 Q 250 200 500 120" fill="none" stroke="#6B6862" stroke-width="2" stroke-dasharray="6,6"/>
-          
-          <!-- Isolated "Unprofitable" Node -->
-          <circle cx="310" cy="320" r="14" fill="#C85A32"/>
-          <circle cx="310" cy="320" r="28" fill="none" stroke="#C85A32" stroke-width="1.5" stroke-dasharray="3,3"/>
-
-          <!-- Label Lines -->
-          <line x1="310" y1="320" x2="450" y2="320" stroke="#1A1A18" stroke-width="1" stroke-dasharray="2,4"/>
-          <circle cx="450" cy="320" r="4" fill="#1A1A18"/>
-        </g>
-
-        <!-- Translucent Geometric Accent Overlay -->
-        <rect x="220" y="470" width="460" height="420" fill="#1A1A18" fill-opacity="0.08" stroke="#1A1A18" stroke-width="1.5"/>
-      </svg>
-    </div>
-    <p class="cover-caption">Why “for what?” is the first thing we ask of an hour — and what it costs to always have an answer.</p>
-  </div>
-</section>
-</main>
 
 <main class="wrap">
-<!-- Featured Issue Section: Issue 006 -->
-<section class="hero">
-  <div>
-    <span class="eyebrow">Issue Nº006</span>
-    <h1>If saying “I've been so busy” is meant as an apology, why does it so often sound like a boast — and why do we keep accepting both?</h1>
-    <p class="issue-subtitle">The Apology Economy — why “sorry, I've been so busy” is an apology and a boast at once, and what we do by letting it pass</p>
-    <p class="dek">For people who have said “sorry, I've been so busy” and meant two things by it — and for those who have nodded along without quite hearing either. We begin with a question — about status, apology, and who actually keeps the books — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in the real world.</p>
-    <a class="cta-button" href="issue-006.html">Read The Apology Economy</a>
-  </div>
-
-  <div class="side-card">
-    <div class="cover-container">
-      <!-- SVG Artwork for Issue 006 Cover -->
-      <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 006 Cover Artwork: The Apology Economy">
-        <!-- Background Paper -->
-        <rect width="900" height="1150" fill="#DDD8CE"/>
-        
-        <!-- Top Left Label -->
-        <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 006</text>
-        <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
-        
-        <!-- Top Right Subtitle -->
-        <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHY "SORRY, I'VE BEEN</text>
-        <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">SO BUSY" IS AN APOLOGY</text>
-        <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">AND A BOAST AT ONCE</text>
-
-        <!-- Main Serif Headline -->
-        <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
-        <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Apology</text>
-        <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Economy</text>
-
-        <!-- Graphic Elements (Double Entry / Balancing Ledger Graphic) -->
-        <g transform="translate(140, 410)">
-          <!-- Outer Grid / Floor lines -->
-          <line x1="0" y1="500" x2="620" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,8"/>
-          <line x1="0" y1="250" x2="620" y2="250" stroke="#6B6862" stroke-width="1" stroke-dasharray="4,8"/>
-          
-          <!-- Central Ledger Line -->
-          <line x1="310" y1="100" x2="310" y2="480" stroke="#1A1A18" stroke-width="2"/>
-
-          <!-- Left Column Vector: Apology / Debit -->
-          <circle cx="180" cy="340" r="10" fill="#C85A32"/>
-          <line x1="180" y1="340" x2="180" y2="500" stroke="#C85A32" stroke-width="2" stroke-dasharray="6,6"/>
-
-          <!-- Right Column Vector: Status / Credit -->
-          <circle cx="440" cy="200" r="10" fill="#B08D57"/>
-          <line x1="440" y1="200" x2="440" y2="500" stroke="#B08D57" stroke-width="2" stroke-dasharray="6,6"/>
-
-          <!-- Connecting Transaction Line -->
-          <line x1="180" y1="340" x2="440" y2="200" stroke="#1A1A18" stroke-width="2.5"/>
-          
-          <!-- Divergent / Pending Signal Point -->
-          <circle cx="530" cy="140" r="8" fill="#6B6862"/>
-          <line x1="440" y1="200" x2="530" y2="140" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="3,6"/>
-        </g>
-
-        <!-- Translucent Geometric Accent Overlay -->
-        <rect x="220" y="470" width="460" height="420" fill="#1A1A18" fill-opacity="0.08" stroke="#1A1A18" stroke-width="1.5"/>
-      </svg>
-    </div>
-    <p class="cover-caption">Why "sorry, I've been so busy" is an apology and a boast at once — and what we do by letting it pass.</p>
-  </div>
-</section>
-   
-<!-- Featured Issue Section: Issue 005 -->
-<section class="hero">
-  <div>
-    <span class="eyebrow">Issue Nº005</span>
-    <h1>If you already know it's time to stop, why do you keep waiting for someone else to say so?</h1>
-    <p class="issue-subtitle">The Permission Problem — why capable people wait for someone else to say it's okay to stop, and what that waiting quietly costs</p>
-    <p class="dek">For people who have quietly decided something needs to change and are still, months later, waiting for permission that was never going to arrive from outside. We begin with a question — about self-trust, authority, and who actually gets to decide when enough is enough — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in the real world.</p>
-    <a class="cta-button" href="issue-005.html">Read The Permission Problem</a>
-  </div>
-
-  <div class="side-card">
-    <div class="cover-container">
-      <!-- SVG Artwork for Issue 005 Cover -->
-      <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 005 Cover Artwork: The Permission Problem">
-        <!-- Background Paper -->
-        <rect width="900" height="1150" fill="#DDD8CE"/>
-        
-        <!-- Top Left Label -->
-        <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 005</text>
-        <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
-        
-        <!-- Top Right Subtitle -->
-        <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">IF YOU ALREADY KNOW</text>
-        <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">IT'S TIME TO STOP</text>
-        <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHY DO YOU WAIT?</text>
-
-        <!-- Main Serif Headline -->
-        <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
-        <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Permission</text>
-        <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Problem</text>
-
-        <!-- Graphic Elements (Stylized Permission Slip Diagram) -->
-        <g transform="translate(140, 410)">
-          <!-- Background Grid / Axis Lines -->
-          <line x1="0" y1="500" x2="620" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,8"/>
-          <line x1="0" y1="250" x2="620" y2="250" stroke="#6B6862" stroke-width="1" stroke-dasharray="4,8"/>
-          
-          <!-- Outer Bound Rectangle / Formal Document Frame -->
-          <rect x="80" y="80" width="460" height="340" fill="none" stroke="#1A1A18" stroke-width="2" stroke-dasharray="8,6"/>
-
-          <!-- Dashed Signature Line & Stamp / External Validation Vector -->
-          <line x1="130" y1="320" x2="350" y2="320" stroke="#1A1A18" stroke-width="1.5"/>
-          <circle cx="430" cy="280" r="45" fill="none" stroke="#C85A32" stroke-width="2" stroke-dasharray="4,4"/>
-          <circle cx="430" cy="280" r="35" fill="none" stroke="#C85A32" stroke-width="1.5"/>
-
-          <!-- Unused / Pending Action Node -->
-          <circle cx="240" cy="320" r="8" fill="#B08D57"/>
-
-          <!-- Divergent / Self-Authorizing Vector Line -->
-          <line x1="240" y1="320" x2="430" y2="150" stroke="#C85A32" stroke-width="3"/>
-          <circle cx="430" cy="150" r="10" fill="#C85A32"/>
-
-          <!-- Structural Projection Lines -->
-          <line x1="240" y1="320" x2="240" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
-          <line x1="430" y1="150" x2="430" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
-        </g>
-
-        <!-- Translucent Geometric Accent Overlay -->
-        <rect x="220" y="470" width="460" height="420" fill="#1A1A18" fill-opacity="0.08" stroke="#1A1A18" stroke-width="1.5"/>
-      </svg>
-    </div>
-    <p class="cover-caption">Why capable people wait for someone else to say it's okay to stop — and what that waiting quietly costs.</p>
-  </div>
-</section>
-
-   
-<!-- Featured Issue Section: Issue 004 -->
-<section class="hero">
-  <div>
-    <span class="eyebrow">Issue Nº004</span>
-    <h1>When success is always the next milestone, when do you get to stop and say you've arrived?</h1>
-    <p class="issue-subtitle">The Achievement Trap — why crossing the finish line rarely feels like the finish line, and what a life built entirely on the next milestone quietly forgets to ask</p>
-    <p class="dek">For people who have never once said “I’ve made it” and meant it. We begin with a question — about ambition, satisfaction, and what finishing actually requires — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in the real world.</p>
-    <a class="cta-button" href="issue-004.html">Read the Achievement Trap</a>
-  </div>
-
-  <div class="side-card">
-    <div class="cover-container">
-      <!-- SVG Artwork for Issue 004 Cover -->
-      <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 004 Cover Artwork: The Achievement Trap">
-        <!-- Background Paper -->
-        <rect width="900" height="1150" fill="#DDD8CE"/>
-        
-        <!-- Top Left Label -->
-        <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 004</text>
-        <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
-        
-        <!-- Top Right Subtitle -->
-        <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHY CROSSING</text>
-        <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">THE FINISH LINE</text>
-        <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">RARELY FEELS LIKE</text>
-        <text x="810" y="295" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">THE FINISH LINE</text>
-
-        <!-- Main Serif Headline -->
-        <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
-        <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Achievement</text>
-        <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Trap</text>
-
-        <!-- Graphic Elements (Milestones / Moving Goalposts Diagram) -->
-        <g transform="translate(140, 410)">
-          <!-- Axis / Timeline / Floor Grid -->
-          <line x1="0" y1="500" x2="620" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,8"/>
-          <line x1="0" y1="250" x2="620" y2="250" stroke="#6B6862" stroke-width="1" stroke-dasharray="4,8"/>
-          
-          <!-- Stepped Milestone Line (Recalibrating / Infinite Stairway) -->
-          <path d="M 0,450 L 120,450 L 120,350 L 260,350 L 260,250 L 420,250 L 420,150 L 580,150" fill="none" stroke="#1A1A18" stroke-width="2.5"/>
-          
-          <!-- Ticked Milestone Checkpoints (Intrinsic vs Positional Nodes) -->
-          <circle cx="120" cy="450" r="8" fill="#B08D57"/>
-          <circle cx="260" cy="350" r="8" fill="#B08D57"/>
-          <circle cx="420" cy="250" r="10" fill="#C85A32"/>
-
-          <!-- Vertical Projection Lines (Current Base / Shifting Horizon) -->
-          <line x1="120" y1="450" x2="120" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
-          <line x1="260" y1="350" x2="260" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
-          <line x1="420" y1="250" x2="420" y2="500" stroke="#C85A32" stroke-width="1.5" stroke-dasharray="6,6"/>
-
-          <!-- Unreachable / Next Goalpost Node -->
-          <circle cx="580" cy="150" r="8" fill="#6B6862"/>
-          <line x1="420" y1="250" x2="580" y2="150" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="3,6"/>
-        </g>
-
-        <!-- Translucent Geometric Accent Overlay -->
-        <rect x="220" y="470" width="460" height="420" fill="#1A1A18" fill-opacity="0.08" stroke="#1A1A18" stroke-width="1.5"/>
-      </svg>
-    </div>
-    <p class="cover-caption">Why crossing the finish line rarely feels like the finish line.</p>
-  </div>
-</section>
-
-
-   
-<!-- Featured Issue Section: Issue 003 -->
-<section class="hero">
-  <div>
-    <span class="eyebrow">Issue Nº003</span>
-    <h1>When proximity is mistaken for connection, how do you tell what's actually yours?</h1>
-    <p class="issue-subtitle">The Proximity Trap — why the people who know your calendar best aren't always the people who know you, and what real friendship costs that closeness never has to pay</p>
-    <p class="dek">For people whose fullest, most reliable hours belong to people they didn't choose and may not keep. We begin with a question — about hours, choice, and what closeness actually requires — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in the real world.</p>
-    <a class="cta-button" href="issue-003.html">Read the Proximity Trap</a>
-  </div>
-
-  <div class="side-card">
-    <div class="cover-container">
-      <!-- SVG Artwork for Issue 003 Cover -->
-      <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 003 Cover Artwork: The Proximity Trap">
-        <!-- Background Paper -->
-        <rect width="900" height="1150" fill="#DDD8CE"/>
-        
-        <!-- Top Left Label -->
-        <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 003</text>
-        <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
-        
-        <!-- Top Right Subtitle -->
-        <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHEN PROXIMITY</text>
-        <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">IS MISTAKEN FOR</text>
-        <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">CONNECTION</text>
-
-        <!-- Main Serif Headline -->
-        <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
-        <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Proximity</text>
-        <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Trap</text>
-
-        <!-- Graphic Elements (Overlapping Concentric Proximity Rings Diagram) -->
-        <g transform="translate(140, 410)">
-          <!-- Outer Grid / Floor lines -->
-          <line x1="0" y1="500" x2="620" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,8"/>
-          <line x1="0" y1="250" x2="620" y2="250" stroke="#6B6862" stroke-width="1" stroke-dasharray="4,8"/>
-          
-          <!-- Shared Room / Proximity Boundary -->
-          <circle cx="250" cy="280" r="220" fill="none" stroke="#1A1A18" stroke-width="2"/>
-          <circle cx="370" cy="280" r="220" fill="none" stroke="#1A1A18" stroke-width="2"/>
-
-          <!-- Intersecting Nodes -->
-          <circle cx="250" cy="280" r="10" fill="#B08D57"/>
-          <circle cx="370" cy="280" r="10" fill="#C85A32"/>
-
-          <!-- Connecting Distance Vector Line -->
-          <line x1="250" y1="280" x2="370" y2="280" stroke="#C85A32" stroke-width="3"/>
-          <line x1="250" y1="280" x2="250" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
-          <line x1="370" y1="280" x2="370" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
-
-          <!-- Distant Unchosen Point (Divergent Node) -->
-          <circle cx="530" cy="140" r="8" fill="#6B6862"/>
-          <line x1="370" y1="280" x2="530" y2="140" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="3,6"/>
-        </g>
-
-        <!-- Translucent Geometric Accent Overlay -->
-        <rect x="220" y="470" width="460" height="420" fill="#1A1A18" fill-opacity="0.08" stroke="#1A1A18" stroke-width="1.5"/>
-      </svg>
-    </div>
-    <p class="cover-caption">Why the people who know your calendar best aren't always the ones who know you.</p>
-  </div>
-</section>
-<!-- Featured Issue Section: Issue 02 -->
-  <section class="hero">
+  <!-- Tier 1: Lead Featured Issue (Issue 009) -->
+  <section class="hero" aria-labelledby="lead-issue-title">
     <div>
-      <span class="eyebrow">Issue Nº002</span>
-      <h1>When ease is designed into everything, what happens to the parts of life that only effort could give you?</h1>
-      <p class="issue-subtitle">The Convenience Trap — why the easiest choice isn't always the one worth making, and what a frictionless life quietly takes from us</p>
-      <p class="dek">For people whose lives have quietly been engineered to require less and less of them — one tap, one swipe, one delivery away from almost anything. We begin with a question — about ease, effort, and what convenience quietly costs — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in the real world.</p>
-      <a class="cta-button" href="issue-002.html">Read the Convenience Trap</a>
+      <span class="eyebrow">Latest Issue &middot; Nº009</span>
+      <h1 id="lead-issue-title">If a quiet person is simply listening, thinking or content, why do we keep asking what’s wrong — and who is the question really for?</h1>
+      <p class="issue-subtitle">The Quiet One — why “you’re so quiet today” is a question about the room, and what it asks of the person who hears it</p>
+      <p class="dek">For people who have been asked why they’re so quiet and answered with a joke — and for those who asked, kindly, so the table could get going again. We begin with a question — about silence, rooms, and who a question is really for — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in the real world.</p>
+      <a class="cta-button" href="issue-009.html">Read Issue Nº009 &rarr;</a>
     </div>
 
     <div class="side-card">
       <div class="cover-container">
-        <!-- SVG Artwork for Issue 002 Cover -->
-        <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 002 Cover Artwork: The Convenience Trap">
-          <!-- Background Paper -->
+        <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 009 Cover Artwork: The Quiet One">
           <rect width="900" height="1150" fill="#DDD8CE"/>
-          
-          <!-- Top Left Label -->
-          <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 002</text>
+          <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 009</text>
           <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
-          
-          <!-- Top Right Subtitle -->
-          <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHAT A</text>
-          <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">FRICTIONLESS</text>
-          <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">LIFE QUIETLY</text>
-          <text x="810" y="295" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">TAKES FROM US</text>
-
-          <!-- Main Serif Headline -->
+          <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">SILENCE NEEDS</text>
+          <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">NO EXPLANATION</text>
+          <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">ONLY A DOOR</text>
           <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
-          <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Convenience</text>
-          <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Trap</text>
-
-          <!-- Graphic Elements (Friction vs. Flow Diagram Art) -->
-          <g transform="translate(140, 420)">
-            <!-- Stepped, Effortful Lines -->
-            <path d="M 50,50 L 150,50 L 150,150 L 250,150 L 250,250 L 350,250 L 350,350 L 450,350" fill="none" stroke="#1A1A18" stroke-width="3"/>
-            <path d="M 50,100 L 200,100 L 200,200 L 350,200 L 350,300 L 500,300" fill="none" stroke="#6B6862" stroke-width="2" stroke-dasharray="6,6"/>
-            
-            <!-- Friction Points / Accent Nodes -->
-            <circle cx="150" cy="50" r="8" fill="#C85A32"/>
-            <circle cx="250" cy="150" r="8" fill="#B08D57"/>
-            <circle cx="350" cy="250" r="8" fill="#C85A32"/>
-            
-            <!-- Smooth Frictionless Line Overlay -->
-            <path d="M 50,450 C 200,350 300,150 550,50" fill="none" stroke="#B08D57" stroke-width="4"/>
+          <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Quiet</text>
+          <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">One</text>
+          <g transform="translate(140, 410)">
+            <line x1="0" y1="500" x2="620" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,8"/>
+            <line x1="0" y1="250" x2="620" y2="250" stroke="#6B6862" stroke-width="1" stroke-dasharray="4,8"/>
+            <path d="M 120 180 A 110 110 0 0 1 120 340" fill="none" stroke="#1A1A18" stroke-width="2"/>
+            <path d="M 155 140 A 165 165 0 0 1 155 380" fill="none" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
+            <path d="M 190 100 A 220 220 0 0 1 190 420" fill="none" stroke="#6B6862" stroke-width="1" stroke-dasharray="3,6"/>
+            <line x1="120" y1="260" x2="430" y2="260" stroke="#C85A32" stroke-width="3"/>
+            <circle cx="120" cy="260" r="10" fill="#C85A32"/>
+            <circle cx="450" cy="260" r="95" fill="none" stroke="#1A1A18" stroke-width="2"/>
+            <circle cx="450" cy="260" r="12" fill="#B08D57"/>
+            <line x1="545" y1="130" x2="545" y2="215" stroke="#1A1A18" stroke-width="3"/>
+            <line x1="545" y1="305" x2="545" y2="390" stroke="#1A1A18" stroke-width="3"/>
+            <line x1="545" y1="215" x2="605" y2="170" stroke="#B08D57" stroke-width="3"/>
+            <path d="M 545 305 A 90 90 0 0 0 605 170" fill="none" stroke="#6B6862" stroke-width="1.2" stroke-dasharray="3,5"/>
+            <line x1="120" y1="260" x2="120" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
+            <line x1="450" y1="260" x2="450" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
           </g>
-
-          <!-- Translucent Overlay Box -->
-          <rect x="280" y="480" width="450" height="420" fill="#1A1A18" fill-opacity="0.10" stroke="#1A1A18" stroke-width="1.5"/>
+          <rect x="220" y="470" width="460" height="420" fill="#1A1A18" fill-opacity="0.08" stroke="#1A1A18" stroke-width="1.5"/>
         </svg>
       </div>
-      <p class="cover-caption">Why the easiest choice isn't always the one worth making.</p>
-    </div>
-  </section>
-   
-  <!-- Hero Featured Issue Section -->
-  <section class="hero">
-    <div>
-      <span class="eyebrow">Issue Nº001</span>
-      <h1>When everything claims to be worth your attention, how do you decide what actually deserves it?</h1>
-      <p class="issue-subtitle">The Filter Problem — why so many of us still feel behind, and what better judgment actually looks like</p>
-      <p class="dek">For people who read widely and still feel behind. We begin with a question — about how we judge, what we choose, and what deserves our attention — then follow the thread through its backstory, its complications, the ideas it opens up, and how they take shape in real life.</p>
-      <a class="cta-button" href="issue-001.html">Read the Filter Problem</a>
-    </div>
-
-    <div class="side-card">
-      <div class="cover-container">
-        <!-- Pure SVG Rendering of the Issue 001 Cover Image -->
-        <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 001 Cover Artwork: The Filter Problem">
-          <!-- Background Paper -->
-          <rect width="900" height="1150" fill="#DDD8CE"/>
-          
-          <!-- Top Left Label -->
-          <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 001</text>
-          <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
-          
-          <!-- Top Right Subtitle -->
-          <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">HOW WE CHOOSE</text>
-          <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHAT MATTERS</text>
-          <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">IN A WORLD THAT</text>
-          <text x="810" y="295" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">DECIDES FOR US</text>
-
-          <!-- Main Serif Headline -->
-          <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
-          <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Filter</text>
-          <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Problem</text>
-
-          <!-- Shadow beneath paper stack -->
-          <polygon points="120,950 500,1050 820,810 400,760" fill="rgba(0,0,0,0.12)" />
-
-          <!-- Stacked Newspaper Pages Vector Simulation -->
-          <g transform="translate(140, 390)">
-            <!-- Stack Layers Base -->
-            <polygon points="40,550 420,640 680,420 300,340" fill="#BFB9AC" stroke="#8C867A" stroke-width="1"/>
-            <polygon points="35,540 415,630 675,410 295,330" fill="#CCC6B9" stroke="#9E988C" stroke-width="1"/>
-            <polygon points="38,530 418,620 678,400 298,320" fill="#D8D2C5" stroke="#AAA498" stroke-width="1"/>
-            <polygon points="32,520 412,610 672,390 292,310" fill="#ECE6D9" stroke="#BBB5A8" stroke-width="1"/>
-
-            <!-- Paper Stack Text / Grids -->
-            <polygon points="30,510 410,600 670,380 290,300" fill="#E8E2D5" stroke="#333333" stroke-width="1.5"/>
-            <!-- Newspaper Column Text Details -->
-            <line x1="80" y1="490" x2="220" y2="450" stroke="#666" stroke-width="2"/>
-            <line x1="80" y1="500" x2="220" y2="460" stroke="#666" stroke-width="2"/>
-            <line x1="80" y1="510" x2="220" y2="470" stroke="#666" stroke-width="2"/>
-            
-            <line x1="240" y1="445" x2="380" y2="405" stroke="#666" stroke-width="2"/>
-            <line x1="240" y1="455" x2="380" y2="415" stroke="#666" stroke-width="2"/>
-            <line x1="240" y1="465" x2="380" y2="425" stroke="#666" stroke-width="2"/>
-
-            <!-- Sticky Color Bookmark Tabs -->
-            <!-- Orange Tab top -->
-            <polygon points="410,110 460,123 440,145 390,132" fill="#E56A32"/>
-            <!-- Yellow Tab middle -->
-            <polygon points="120,180 180,195 165,215 105,200" fill="#E8AD38"/>
-            <!-- Red/Orange Tab -->
-            <polygon points="110,250 170,265 155,285 95,270" fill="#C85A32"/>
-            <!-- Blue Tab -->
-            <polygon points="520,240 570,253 555,270 505,257" fill="#8BB2C9"/>
-            <!-- Gold Tab lower -->
-            <polygon points="120,340 180,355 165,375 105,360" fill="#DDA032"/>
-            <!-- Peach Tab bottom -->
-            <polygon points="510,410 570,423 555,445 495,432" fill="#F0A683"/>
-            <!-- Yellow Tab very bottom -->
-            <polygon points="420,510 480,523 465,550 405,537" fill="#F2D172"/>
-          </g>
-
-          <!-- Dark Translucent Filter Square Overlay -->
-          <rect x="330" y="405" width="380" height="440" fill="#1A1A18" fill-opacity="0.65" stroke="#1A1A18" stroke-width="2"/>
-        </svg>
-      </div>
-      <p class="cover-caption">How we choose what matters in a world that decides for us.</p>
+      <p class="cover-caption">Why “you’re so quiet today” is a question about the room — and what it asks of the person who hears it.</p>
     </div>
   </section>
 
-  <!-- Editorial Principle Strip -->
+  <!-- Tier 2: Editorial Principle Strip -->
   <section class="principle-strip" aria-label="Our Publishing Principles">
     <div class="principle-item">
       <span class="p-num">Why we exist</span>
-      <h4>Judgment, not consumption</h4>
+      <h2>Judgment, not consumption</h2>
       <p>We're not trying to help you consume more. We're trying to help you spend your attention as though it were what it has always actually been — the scarcest resource you have.</p>
     </div>
 
     <div class="principle-item">
       <span class="p-num">How we work</span>
-      <h4>We show our reasoning</h4>
+      <h2>We show our reasoning</h2>
       <p>We make considered choices about what's worth lingering over, and just as importantly, we show our working — including what we chose to leave out, and why.</p>
     </div>
 
     <div class="principle-item">
       <span class="p-num">How often</span>
-      <h4>Slow, on purpose</h4>
+      <h2>Slow, on purpose</h2>
       <p>One question per issue, followed through its backstory, its complications, and how it plays out in everyday life — rather than a list of links dressed up as insight.</p>
     </div>
   </section>
 
+  <!-- Tier 3: Back Catalog Grid (Issues 008 – 001) -->
+  <section aria-labelledby="archive-heading">
+    <div class="section-header">
+      <h2 id="archive-heading">Previous Issues</h2>
+      <span>Nº008 — Nº001</span>
+    </div>
+
+    <div class="archive-grid">
+      <!-- Issue 008 -->
+      <a href="issue-008.html" class="archive-item">
+        <div class="cover-container">
+          <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 008 Cover Artwork: The Old Light">
+            <rect width="900" height="1150" fill="#DDD8CE"/>
+            <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 008</text>
+            <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
+            <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHY THE PEOPLE</text>
+            <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WE KNOW ARE ALWAYS</text>
+            <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">OUT OF DATE</text>
+            <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
+            <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Old</text>
+            <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Light</text>
+            <g transform="translate(140, 410)">
+              <line x1="0" y1="500" x2="620" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,8"/>
+              <line x1="0" y1="250" x2="620" y2="250" stroke="#6B6862" stroke-width="1" stroke-dasharray="4,8"/>
+              <circle cx="120" cy="180" r="45" fill="none" stroke="#C85A32" stroke-width="2"/>
+              <circle cx="120" cy="180" r="12" fill="#C85A32"/>
+              <line x1="120" y1="180" x2="500" y2="350" stroke="#C85A32" stroke-width="2.5" stroke-dasharray="8,6"/>
+              <line x1="120" y1="180" x2="120" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,6"/>
+              <circle cx="500" cy="350" r="10" fill="#1A1A18"/>
+              <line x1="500" y1="350" x2="500" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
+              <circle cx="500" cy="180" r="8" fill="#B08D57"/>
+              <line x1="120" y1="180" x2="500" y2="180" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="3,6"/>
+              <line x1="500" y1="180" x2="500" y2="350" stroke="#B08D57" stroke-width="1.5" stroke-dasharray="4,4"/>
+            </g>
+            <rect x="220" y="470" width="460" height="420" fill="#1A1A18" fill-opacity="0.08" stroke="#1A1A18" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <span class="eyebrow">Issue Nº008</span>
+        <h3>The Old Light</h3>
+        <p>Why the people we know are always a few years out of date in our heads — and what it costs never to check the date.</p>
+        <span class="read-link">Read Issue Nº008 &rarr;</span>
+      </a>
+
+      <!-- Issue 007 -->
+      <a href="issue-007.html" class="archive-item">
+        <div class="cover-container">
+          <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 007 Cover Artwork: The Unprofitable Hour">
+            <rect width="900" height="1150" fill="#DDD8CE"/>
+            <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 007</text>
+            <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
+            <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHY "FOR WHAT?" IS</text>
+            <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">THE FIRST THING WE</text>
+            <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">ASK OF AN HOUR</text>
+            <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
+            <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Unprofitable</text>
+            <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Hour</text>
+            <g transform="translate(140, 410)">
+              <line x1="0" y1="500" x2="620" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,8"/>
+              <line x1="0" y1="250" x2="620" y2="250" stroke="#6B6862" stroke-width="1" stroke-dasharray="4,8"/>
+              <line x1="100" y1="100" x2="100" y2="450" stroke="#1A1A18" stroke-width="2"/>
+              <line x1="100" y1="450" x2="520" y2="450" stroke="#1A1A18" stroke-width="2"/>
+              <path d="M 100 450 Q 250 200 500 120" fill="none" stroke="#6B6862" stroke-width="2" stroke-dasharray="6,6"/>
+              <circle cx="310" cy="320" r="14" fill="#C85A32"/>
+              <circle cx="310" cy="320" r="28" fill="none" stroke="#C85A32" stroke-width="1.5" stroke-dasharray="3,3"/>
+              <line x1="310" y1="320" x2="450" y2="320" stroke="#1A1A18" stroke-width="1" stroke-dasharray="2,4"/>
+              <circle cx="450" cy="320" r="4" fill="#1A1A18"/>
+            </g>
+            <rect x="220" y="470" width="460" height="420" fill="#1A1A18" fill-opacity="0.08" stroke="#1A1A18" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <span class="eyebrow">Issue Nº007</span>
+        <h3>The Unprofitable Hour</h3>
+        <p>Why “for what?” is the first thing we ask of an hour — and what it costs to always have an answer.</p>
+        <span class="read-link">Read Issue Nº007 &rarr;</span>
+      </a>
+
+      <!-- Issue 006 -->
+      <a href="issue-006.html" class="archive-item">
+        <div class="cover-container">
+          <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 006 Cover Artwork: The Apology Economy">
+            <rect width="900" height="1150" fill="#DDD8CE"/>
+            <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 006</text>
+            <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
+            <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHY "SORRY, I'VE BEEN</text>
+            <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">SO BUSY" IS AN APOLOGY</text>
+            <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">AND A BOAST AT ONCE</text>
+            <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
+            <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Apology</text>
+            <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Economy</text>
+            <g transform="translate(140, 410)">
+              <line x1="0" y1="500" x2="620" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,8"/>
+              <line x1="0" y1="250" x2="620" y2="250" stroke="#6B6862" stroke-width="1" stroke-dasharray="4,8"/>
+              <line x1="310" y1="100" x2="310" y2="480" stroke="#1A1A18" stroke-width="2"/>
+              <circle cx="180" cy="340" r="10" fill="#C85A32"/>
+              <line x1="180" y1="340" x2="180" y2="500" stroke="#C85A32" stroke-width="2" stroke-dasharray="6,6"/>
+              <circle cx="440" cy="200" r="10" fill="#B08D57"/>
+              <line x1="440" y1="200" x2="440" y2="500" stroke="#B08D57" stroke-width="2" stroke-dasharray="6,6"/>
+              <line x1="180" y1="340" x2="440" y2="200" stroke="#1A1A18" stroke-width="2.5"/>
+              <circle cx="530" cy="140" r="8" fill="#6B6862"/>
+              <line x1="440" y1="200" x2="530" y2="140" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="3,6"/>
+            </g>
+            <rect x="220" y="470" width="460" height="420" fill="#1A1A18" fill-opacity="0.08" stroke="#1A1A18" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <span class="eyebrow">Issue Nº006</span>
+        <h3>The Apology Economy</h3>
+        <p>Why “sorry, I've been so busy” is an apology and a boast at once — and what we do by letting it pass.</p>
+        <span class="read-link">Read Issue Nº006 &rarr;</span>
+      </a>
+
+      <!-- Issue 005 -->
+      <a href="issue-005.html" class="archive-item">
+        <div class="cover-container">
+          <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 005 Cover Artwork: The Permission Problem">
+            <rect width="900" height="1150" fill="#DDD8CE"/>
+            <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 005</text>
+            <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
+            <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">IF YOU ALREADY KNOW</text>
+            <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">IT'S TIME TO STOP</text>
+            <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHY DO YOU WAIT?</text>
+            <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
+            <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Permission</text>
+            <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Problem</text>
+            <g transform="translate(140, 410)">
+              <line x1="0" y1="500" x2="620" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,8"/>
+              <line x1="0" y1="250" x2="620" y2="250" stroke="#6B6862" stroke-width="1" stroke-dasharray="4,8"/>
+              <rect x="80" y="80" width="460" height="340" fill="none" stroke="#1A1A18" stroke-width="2" stroke-dasharray="8,6"/>
+              <line x1="130" y1="320" x2="350" y2="320" stroke="#1A1A18" stroke-width="1.5"/>
+              <circle cx="430" cy="280" r="45" fill="none" stroke="#C85A32" stroke-width="2" stroke-dasharray="4,4"/>
+              <circle cx="430" cy="280" r="35" fill="none" stroke="#C85A32" stroke-width="1.5"/>
+              <circle cx="240" cy="320" r="8" fill="#B08D57"/>
+              <line x1="240" y1="320" x2="430" y2="150" stroke="#C85A32" stroke-width="3"/>
+              <circle cx="430" cy="150" r="10" fill="#C85A32"/>
+              <line x1="240" y1="320" x2="240" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
+              <line x1="430" y1="150" x2="430" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
+            </g>
+            <rect x="220" y="470" width="460" height="420" fill="#1A1A18" fill-opacity="0.08" stroke="#1A1A18" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <span class="eyebrow">Issue Nº005</span>
+        <h3>The Permission Problem</h3>
+        <p>Why capable people wait for someone else to say it's okay to stop — and what that waiting quietly costs.</p>
+        <span class="read-link">Read Issue Nº005 &rarr;</span>
+      </a>
+
+      <!-- Issue 004 -->
+      <a href="issue-004.html" class="archive-item">
+        <div class="cover-container">
+          <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 004 Cover Artwork: The Achievement Trap">
+            <rect width="900" height="1150" fill="#DDD8CE"/>
+            <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 004</text>
+            <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
+            <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHY CROSSING</text>
+            <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">THE FINISH LINE</text>
+            <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">RARELY FEELS LIKE</text>
+            <text x="810" y="295" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">THE FINISH LINE</text>
+            <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
+            <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Achievement</text>
+            <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Trap</text>
+            <g transform="translate(140, 410)">
+              <line x1="0" y1="500" x2="620" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,8"/>
+              <line x1="0" y1="250" x2="620" y2="250" stroke="#6B6862" stroke-width="1" stroke-dasharray="4,8"/>
+              <path d="M 0,450 L 120,450 L 120,350 L 260,350 L 260,250 L 420,250 L 420,150 L 580,150" fill="none" stroke="#1A1A18" stroke-width="2.5"/>
+              <circle cx="120" cy="450" r="8" fill="#B08D57"/>
+              <circle cx="260" cy="350" r="8" fill="#B08D57"/>
+              <circle cx="420" cy="250" r="10" fill="#C85A32"/>
+              <line x1="120" y1="450" x2="120" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
+              <line x1="260" y1="350" x2="260" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
+              <line x1="420" y1="250" x2="420" y2="500" stroke="#C85A32" stroke-width="1.5" stroke-dasharray="6,6"/>
+              <circle cx="580" cy="150" r="8" fill="#6B6862"/>
+              <line x1="420" y1="250" x2="580" y2="150" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="3,6"/>
+            </g>
+            <rect x="220" y="470" width="460" height="420" fill="#1A1A18" fill-opacity="0.08" stroke="#1A1A18" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <span class="eyebrow">Issue Nº004</span>
+        <h3>The Achievement Trap</h3>
+        <p>Why crossing the finish line rarely feels like the finish line — and what a life built on the next milestone forgets to ask.</p>
+        <span class="read-link">Read Issue Nº004 &rarr;</span>
+      </a>
+
+      <!-- Issue 003 -->
+      <a href="issue-003.html" class="archive-item">
+        <div class="cover-container">
+          <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 003 Cover Artwork: The Proximity Trap">
+            <rect width="900" height="1150" fill="#DDD8CE"/>
+            <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 003</text>
+            <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
+            <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHEN PROXIMITY</text>
+            <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">IS MISTAKEN FOR</text>
+            <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">CONNECTION</text>
+            <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
+            <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Proximity</text>
+            <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Trap</text>
+            <g transform="translate(140, 410)">
+              <line x1="0" y1="500" x2="620" y2="500" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="4,8"/>
+              <line x1="0" y1="250" x2="620" y2="250" stroke="#6B6862" stroke-width="1" stroke-dasharray="4,8"/>
+              <circle cx="250" cy="280" r="220" fill="none" stroke="#1A1A18" stroke-width="2"/>
+              <circle cx="370" cy="280" r="220" fill="none" stroke="#1A1A18" stroke-width="2"/>
+              <circle cx="250" cy="280" r="10" fill="#B08D57"/>
+              <circle cx="370" cy="280" r="10" fill="#C85A32"/>
+              <line x1="250" y1="280" x2="370" y2="280" stroke="#C85A32" stroke-width="3"/>
+              <line x1="250" y1="280" x2="250" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
+              <line x1="370" y1="280" x2="370" y2="500" stroke="#1A1A18" stroke-width="1.5" stroke-dasharray="6,6"/>
+              <circle cx="530" cy="140" r="8" fill="#6B6862"/>
+              <line x1="370" y1="280" x2="530" y2="140" stroke="#6B6862" stroke-width="1.5" stroke-dasharray="3,6"/>
+            </g>
+            <rect x="220" y="470" width="460" height="420" fill="#1A1A18" fill-opacity="0.08" stroke="#1A1A18" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <span class="eyebrow">Issue Nº003</span>
+        <h3>The Proximity Trap</h3>
+        <p>Why the people who know your calendar best aren't always the ones who know you — and what real friendship costs.</p>
+        <span class="read-link">Read Issue Nº003 &rarr;</span>
+      </a>
+
+      <!-- Issue 002 -->
+      <a href="issue-002.html" class="archive-item">
+        <div class="cover-container">
+          <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 002 Cover Artwork: The Convenience Trap">
+            <rect width="900" height="1150" fill="#DDD8CE"/>
+            <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 002</text>
+            <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
+            <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHAT A</text>
+            <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">FRICTIONLESS</text>
+            <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">LIFE QUIETLY</text>
+            <text x="810" y="295" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">TAKES FROM US</text>
+            <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
+            <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Convenience</text>
+            <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Trap</text>
+            <g transform="translate(140, 420)">
+              <path d="M 50,50 L 150,50 L 150,150 L 250,150 L 250,250 L 350,250 L 350,350 L 450,350" fill="none" stroke="#1A1A18" stroke-width="3"/>
+              <path d="M 50,100 L 200,100 L 200,200 L 350,200 L 350,300 L 500,300" fill="none" stroke="#6B6862" stroke-width="2" stroke-dasharray="6,6"/>
+              <circle cx="150" cy="50" r="8" fill="#C85A32"/>
+              <circle cx="250" cy="150" r="8" fill="#B08D57"/>
+              <circle cx="350" cy="250" r="8" fill="#C85A32"/>
+              <path d="M 50,450 C 200,350 300,150 550,50" fill="none" stroke="#B08D57" stroke-width="4"/>
+            </g>
+            <rect x="280" y="480" width="450" height="420" fill="#1A1A18" fill-opacity="0.10" stroke="#1A1A18" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <span class="eyebrow">Issue Nº002</span>
+        <h3>The Convenience Trap</h3>
+        <p>Why the easiest choice isn't always the one worth making — and what a frictionless life quietly takes from us.</p>
+        <span class="read-link">Read Issue Nº002 &rarr;</span>
+      </a>
+
+      <!-- Issue 001 -->
+      <a href="issue-001.html" class="archive-item">
+        <div class="cover-container">
+          <svg class="cover-svg" viewBox="0 0 900 1150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Issue 001 Cover Artwork: The Filter Problem">
+            <rect width="900" height="1150" fill="#DDD8CE"/>
+            <text x="80" y="85" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="18" font-weight="600" letter-spacing="4" fill="#1A1A18">ISSUE 001</text>
+            <line x1="120" y1="110" x2="160" y2="110" stroke="#1A1A18" stroke-width="2"/>
+            <text x="810" y="190" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">HOW WE CHOOSE</text>
+            <text x="810" y="225" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">WHAT MATTERS</text>
+            <text x="810" y="260" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">IN A WORLD THAT</text>
+            <text x="810" y="295" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="16" font-weight="600" letter-spacing="3" fill="#1A1A18" text-anchor="end">DECIDES FOR US</text>
+            <text x="80" y="210" font-family="Georgia, serif" font-size="78" fill="#1A1A18">The</text>
+            <text x="80" y="285" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Filter</text>
+            <text x="80" y="360" font-family="Georgia, serif" font-size="78" fill="#1A1A18">Problem</text>
+            <polygon points="120,950 500,1050 820,810 400,760" fill="rgba(0,0,0,0.12)" />
+            <g transform="translate(140, 390)">
+              <polygon points="40,550 420,640 680,420 300,340" fill="#BFB9AC" stroke="#8C867A" stroke-width="1"/>
+              <polygon points="35,540 415,630 675,410 295,330" fill="#CCC6B9" stroke="#9E988C" stroke-width="1"/>
+              <polygon points="38,530 418,620 678,400 298,320" fill="#D8D2C5" stroke="#AAA498" stroke-width="1"/>
+              <polygon points="32,520 412,610 672,390 292,310" fill="#ECE6D9" stroke="#BBB5A8" stroke-width="1"/>
+              <polygon points="30,510 410,600 670,380 290,300" fill="#E8E2D5" stroke="#333333" stroke-width="1.5"/>
+              <line x1="80" y1="490" x2="220" y2="450" stroke="#666" stroke-width="2"/>
+              <line x1="80" y1="500" x2="220" y2="460" stroke="#666" stroke-width="2"/>
+              <line x1="80" y1="510" x2="220" y2="470" stroke="#666" stroke-width="2"/>
+              <line x1="240" y1="445" x2="380" y2="405" stroke="#666" stroke-width="2"/>
+              <line x1="240" y1="455" x2="380" y2="415" stroke="#666" stroke-width="2"/>
+              <line x1="240" y1="465" x2="380" y2="425" stroke="#666" stroke-width="2"/>
+              <polygon points="410,110 460,123 440,145 390,132" fill="#E56A32"/>
+              <polygon points="120,180 180,195 165,215 105,200" fill="#E8AD38"/>
+              <polygon points="110,250 170,265 155,285 95,270" fill="#C85A32"/>
+              <polygon points="520,240 570,253 555,270 505,257" fill="#8BB2C9"/>
+              <polygon points="120,340 180,355 165,375 105,360" fill="#DDA032"/>
+              <polygon points="510,410 570,423 555,445 495,432" fill="#F0A683"/>
+              <polygon points="420,510 480,523 465,550 405,537" fill="#F2D172"/>
+            </g>
+            <rect x="330" y="405" width="380" height="440" fill="#1A1A18" fill-opacity="0.65" stroke="#1A1A18" stroke-width="2"/>
+          </svg>
+        </div>
+        <span class="eyebrow">Issue Nº001 &middot; Foundational Issue</span>
+        <h3>The Filter Problem</h3>
+        <p>Why so many of us still feel behind — and what better judgment actually looks like in a world that decides for us.</p>
+        <span class="read-link">Read Issue Nº001 &rarr;</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Tier 4: Start Here Callout -->
+  <section class="start-here-band" aria-labelledby="start-here-title">
+    <div>
+      <span class="eyebrow">New to The Common Places?</span>
+      <h2 id="start-here-title">Begin with Issue Nº001: The Filter Problem</h2>
+      <p>Our inaugural essay lays out the premise behind the entire publication: how to choose what matters when everything claims to deserve your attention.</p>
+    </div>
+    <div class="cta-wrap">
+      <a class="cta-button" href="issue-001.html">Start Here &rarr;</a>
+    </div>
+  </section>
 </main>
 
 <footer class="site-footer">
