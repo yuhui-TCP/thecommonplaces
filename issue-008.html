@@ -942,33 +942,75 @@ blockquote.bridge {
 </div>
 
 <footer class="site-footer">
-  <div class="wrap row">
-    <div>
-      <h4>The Common Places</h4>
-      <p class="colophon">A publication dedicated to examining the unnoticed patterns, habits, and assumptions shaping contemporary life.</p>
+  <div class="wrap">
+    <div class="footer-top">
+      
+      <!-- Column 1: Colophon & Identity -->
+      <div>
+        <h4>About Us</h4>
+        <div class="footer-brand">The Common Places</div>
+        <p class="colophon">A publication about judgment, curation, and attention — one question per issue, argued properly.</p>
+        <span class="footer-location">Edited in Singapore</span>
+      </div>
+
+      <!-- Column 2: Complete 9-Issue Archive Index -->
+      <div>
+        <h4>Archive Index (001 — 009)</h4>
+        <ul class="issue-index-grid" id="footer-issue-index">
+          <!-- Fallback static links if JS is disabled -->
+          <li><a href="issue-001.html"><span class="idx-num">001</span> The Filter Problem</a></li>
+          <li><a href="issue-002.html"><span class="idx-num">002</span> Issue Two</a></li>
+          <li><a href="issue-003.html"><span class="idx-num">003</span> Issue Three</a></li>
+          <li><a href="issue-004.html"><span class="idx-num">004</span> Issue Four</a></li>
+          <li><a href="issue-005.html"><span class="idx-num">005</span> Issue Five</a></li>
+          <li><a href="issue-006.html"><span class="idx-num">006</span> Issue Six</a></li>
+          <li><a href="issue-007.html"><span class="idx-num">007</span> Issue Seven</a></li>
+          <li><a href="issue-008.html"><span class="idx-num">008</span> Issue Eight</a></li>
+          <li><a href="issue-009.html"><span class="idx-num">009</span> Issue Nine</a></li>
+        </ul>
+      </div>
+
     </div>
-    <div>
-      <h4>Navigation</h4>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="#question">Current Issue</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Archive</h4>
-      <ul>
-        <li><a href="issue-001.html">Issue 001</a></li>
-        <li><a href="issue-002.html">Issue 002</a></li>
-        <li><a href="issue-003.html">Issue 003</a></li>
-        <li><a href="issue-004.html">Issue 004</a></li>
-        <li><a href="issue-005.html">Issue 005</a></li>
-        <li><a href="issue-006.html">Issue 006</a></li>
-        <li><a href="issue-007.html">Issue 007</a></li>
-      </ul>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 The Common Places.</span>
+      <a href="#" class="back-to-top">Back to top &uarr;</a>
     </div>
   </div>
 </footer>
 
+<script>
+  (function () {
+    // Update titles here once across your files as you finalize issues 002-009
+    const issues = [
+      { num: "001", title: "The Filter Problem", file: "issue-001.html" },
+      { num: "002", title: "The Convenience Trap", file: "issue-002.html" },
+      { num: "003", title: "The Proximity Trap",        file: "issue-003.html" },
+      { num: "004", title: "The Achievement Trap",         file: "issue-004.html" },
+      { num: "005", title: "The Permission Problem",         file: "issue-005.html" },
+      { num: "006", title: "The Apology Economy",          file: "issue-006.html" },
+      { num: "007", title: "The Unprofitable Hour",        file: "issue-007.html" },
+      { num: "008", title: "The Old Light",        file: "issue-008.html" },
+      { num: "009", title: "The Quiet One",         file: "issue-009.html" }
+    ];
+
+    const list = document.getElementById("footer-issue-index");
+    if (!list) return;
+
+    const currentFile = window.location.pathname.split("/").pop() || "issue-001.html";
+
+    list.innerHTML = issues.map(issue => {
+      const isCurrent = currentFile === issue.file;
+      return `
+        <li>
+          <a href="${issue.file}" ${isCurrent ? 'aria-current="page"' : ''}>
+            <span class="idx-num">${issue.num}</span>
+            <span>${issue.title}</span>
+          </a>
+        </li>
+      `;
+    }).join("");
+  })();
+</script>
 </body>
 </html>
